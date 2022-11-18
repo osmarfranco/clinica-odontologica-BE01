@@ -1,21 +1,19 @@
 package com.dh.grupo01.clinicaodontologica.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 
 public class Paciente {
 
-    String nome, sobrenome, rg;
-    Date dataCadastro;
-    Endereco endereco;
-
-
+    private int id;
+    private LocalDate dataCadastro;
+    private String rg, nome, sobrenome;
+    private Endereco endereco;
 
 }

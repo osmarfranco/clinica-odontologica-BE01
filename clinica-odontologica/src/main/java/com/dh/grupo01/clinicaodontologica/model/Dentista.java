@@ -1,15 +1,13 @@
 package com.dh.grupo01.clinicaodontologica.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
+
 public class Dentista {
 
-
-    String nome, sobrenome;
-    int idDentista;
+    private int id;
+    private String cro, nome, sobrenome; //cro é a matrícula do dentista, assim como a do médico é o crm
 }
