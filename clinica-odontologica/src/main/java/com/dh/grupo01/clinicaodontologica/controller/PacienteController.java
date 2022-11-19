@@ -24,16 +24,16 @@ public class PacienteController {
     }
 
     @DeleteMapping()
-    public String deletar(){
-        return "Entrou no delete";
+    public Paciente deletar(@RequestBody Paciente paciente){
+        return service.deletar(paciente);
     }
     @PatchMapping()
-    public String alteracaoParcial(){
-        return "Entrou no  Patch";
+    public Paciente alteracaoParcial(@RequestBody Paciente paciente){
+        return service.atualizarParcial(paciente);
     }
     @PutMapping()
-    public String alteracaoTotal(){
-        return "Entrou no  Put";
+    public Paciente atualizar(@RequestBody Paciente paciente){
+        return service.atualizar(paciente);
     }
 
 

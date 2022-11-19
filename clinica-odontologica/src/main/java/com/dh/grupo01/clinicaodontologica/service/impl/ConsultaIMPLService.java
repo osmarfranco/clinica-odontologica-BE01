@@ -17,4 +17,16 @@ public class ConsultaIMPLService {
         return consultaDao.salvar(consulta);
     }
 
+    public Consulta deletar(Consulta consulta){
+        return consultaDao.deletar(consulta);
+    }
+
+    public Consulta atualizar(Consulta consulta){
+        return consultaDao.atualizar(consulta);
+    }
+
+    public Consulta atualizarParcial(Consulta consulta){
+        return consultaDao.atualizarParcial(consulta);
+    }
+
 }

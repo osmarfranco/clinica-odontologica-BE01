@@ -12,7 +12,7 @@ import lombok.*;
 public class Consulta {
 
     private int id;
-    private LocalDateTime dataConsulta;
+    private String dataConsulta;
     private Dentista dentista;
     private Paciente paciente;
 }

@@ -2,9 +2,7 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 
 import com.dh.grupo01.clinicaodontologica.model.Consulta;
-import com.dh.grupo01.clinicaodontologica.model.Paciente;
 import com.dh.grupo01.clinicaodontologica.service.impl.ConsultaIMPLService;
-import com.dh.grupo01.clinicaodontologica.service.impl.PacienteIMPLService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,16 +25,16 @@ public class ConsultaController {
     }
 
     @DeleteMapping()
-    public String deletar(){
-        return "Entrou no delete";
+    public Consulta deletar(@RequestBody Consulta consulta){
+        return service.deletar(consulta);
     }
     @PatchMapping()
-    public String alteracaoParcial(){
-        return "Entrou no  Patch";
+    public Consulta alteracaoParcial(@RequestBody Consulta consulta){
+        return service.atualizarParcial(consulta);
     }
     @PutMapping()
-    public String alteracaoTotal(){
-        return "Entrou no  Put";
+    public Consulta atualizar(@RequestBody Consulta consulta){
+        return service.atualizar(consulta);
     }
 
 

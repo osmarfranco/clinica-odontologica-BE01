@@ -17,4 +17,16 @@ public class EnderecoIMPLService {
     public Endereco salvar(Endereco endereco){
         return enderecoDao.salvar(endereco);
     }
+
+    public Endereco deletar(Endereco endereco){
+        return enderecoDao.deletar(endereco);
+    }
+
+    public Endereco atualizar(Endereco endereco){
+        return enderecoDao.atualizar(endereco);
+    }
+
+    public Endereco atualizarParcial(Endereco endereco){
+        return enderecoDao.atualizarParcial(endereco);
+    }
 }

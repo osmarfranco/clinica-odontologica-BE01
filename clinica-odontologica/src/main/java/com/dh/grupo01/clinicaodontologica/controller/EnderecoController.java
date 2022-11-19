@@ -18,20 +18,20 @@ public class EnderecoController {
     }
     @PostMapping()
     public Endereco salvar(@RequestBody Endereco endereco){
-        System.out.println();
+
         return service.salvar(endereco);
     }
     @DeleteMapping()
-    public String deletar(){
-        return "Entrou no delete";
+    public Endereco deletar(@RequestBody Endereco endereco){
+        return service.deletar(endereco);
     }
     @PatchMapping()
-    public String alteracaoParcial(){
-        return "Entrou no  Patch";
+    public Endereco alteracaoParcial(@RequestBody Endereco endereco){
+        return service.atualizarParcial(endereco);
     }
     @PutMapping()
-    public String alteracaoTotal(){
-        return "Entrou no  Put";
+    public Endereco atualizar(@RequestBody Endereco endereco){
+        return service.atualizar(endereco);
     }
 
 }

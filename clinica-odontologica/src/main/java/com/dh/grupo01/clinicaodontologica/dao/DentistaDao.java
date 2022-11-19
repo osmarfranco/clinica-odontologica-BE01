@@ -15,4 +15,40 @@ public class DentistaDao {
         listDentista.add(dentista);
         return dentista;
     }
+
+    public Dentista deletar(Dentista dentista) {
+        listDentista.remove(dentista);
+        return dentista;
+    }
+
+    public Dentista atualizar(Dentista dentista) {
+        for (Dentista dent : listDentista) {
+            if (dent.getId() == dentista.getId()) {
+                listDentista.remove(dent);
+                listDentista.add(dentista);
+            } else {
+                System.out.println("Não encontrado");
+            }
+        }
+        return dentista;
+    }
+
+    public Dentista atualizarParcial(Dentista dentista) {
+        for (Dentista dent : listDentista) {
+            if (dent.getId() == dentista.getId()) {
+                if (dentista.getCro() != null){
+                    dent.setCro(dentista.getCro());
+                }
+                if (dentista.getNome() != null){
+                    dent.setNome(dentista.getNome());
+                }
+                if (dentista.getSobrenome() != null){
+                    dent.setSobrenome(dentista.getSobrenome());
+                }
+            } else {
+                System.out.println("Não encontrado");
+            }
+        }
+        return dentista;
+    }
 }

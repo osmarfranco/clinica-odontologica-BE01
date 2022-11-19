@@ -12,7 +12,7 @@ import lombok.*;
 public class Paciente {
 
     private int id;
-    private LocalDate dataCadastro;
+    private String dataCadastro;
     private String rg, nome, sobrenome;
     private Endereco endereco;
 

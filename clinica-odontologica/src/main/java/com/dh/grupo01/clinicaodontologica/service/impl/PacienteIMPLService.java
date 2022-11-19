@@ -16,4 +16,16 @@ public class PacienteIMPLService {
         return pacienteDao.salvar(paciente);
     }
 
+    public Paciente deletar(Paciente paciente){
+        return pacienteDao.deletar(paciente);
+    }
+
+    public Paciente atualizar(Paciente paciente){
+        return pacienteDao.atualizar(paciente);
+    }
+
+    public Paciente atualizarParcial(Paciente paciente){
+        return pacienteDao.atualizarParcial(paciente);
+    }
+
 }

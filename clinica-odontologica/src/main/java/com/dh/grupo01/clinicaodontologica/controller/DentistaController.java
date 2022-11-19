@@ -24,16 +24,18 @@ public class DentistaController {
     }
 
     @DeleteMapping()
-    public String deletar(){
-        return "Entrou no delete";
+    public Dentista deletar(@RequestBody Dentista dentista){
+        return service.deletar(dentista);
     }
     @PatchMapping()
-    public String alteracaoParcial(){
-        return "Entrou no  Patch";
+    public Dentista alteracaoParcial(@RequestBody Dentista dentista){
+
+        return service.atualizarParcial(dentista);
     }
     @PutMapping()
-    public String alteracaoTotal(){
-        return "Entrou no  Put";
+    public Dentista alteracaoTotal(@RequestBody Dentista dentista){
+
+        return service.atualizar(dentista);
     }
 
 }

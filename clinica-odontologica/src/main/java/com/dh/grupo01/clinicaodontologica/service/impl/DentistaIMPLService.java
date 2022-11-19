@@ -21,4 +21,16 @@ public class DentistaIMPLService {
 
     }
 
+    public Dentista deletar(Dentista dentista) {
+        return dentistaDao.deletar(dentista);
+    }
+
+    public Dentista atualizar(Dentista dentista) {
+        return dentistaDao.atualizar(dentista);
+    }
+
+    public Dentista atualizarParcial(Dentista dentista) {
+        return dentistaDao.atualizarParcial(dentista);
+    }
+
 }
