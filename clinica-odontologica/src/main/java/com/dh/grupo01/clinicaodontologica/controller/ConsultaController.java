@@ -3,6 +3,7 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 import com.dh.grupo01.clinicaodontologica.model.Consulta;
 import com.dh.grupo01.clinicaodontologica.service.impl.ConsultaIMPLService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,8 @@ import java.util.List;
 @RequestMapping("/consulta")
 public class ConsultaController {
 
-    ConsultaIMPLService service = new ConsultaIMPLService();
+    @Autowired
+    ConsultaIMPLService service;
 
     @GetMapping()
     public List<Consulta> buscar(){

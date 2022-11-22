@@ -2,6 +2,7 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 import com.dh.grupo01.clinicaodontologica.model.Paciente;
 import com.dh.grupo01.clinicaodontologica.service.impl.PacienteIMPLService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,8 @@ import java.util.List;
 @RequestMapping("/paciente")
 public class PacienteController {
 
-    PacienteIMPLService service = new PacienteIMPLService();
+    @Autowired
+    PacienteIMPLService service ;
 
     @GetMapping()
     public List<Paciente> buscar(){

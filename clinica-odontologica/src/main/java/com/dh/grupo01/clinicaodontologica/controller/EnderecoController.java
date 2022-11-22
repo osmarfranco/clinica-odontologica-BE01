@@ -2,6 +2,7 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 import com.dh.grupo01.clinicaodontologica.model.Endereco;
 import com.dh.grupo01.clinicaodontologica.service.impl.EnderecoIMPLService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,8 @@ import java.util.List;
 @RequestMapping("/endereco")
 public class EnderecoController {
 
-    EnderecoIMPLService service = new EnderecoIMPLService();
+    @Autowired
+    EnderecoIMPLService service;
 
     @GetMapping()
     public List<Endereco> buscar(){

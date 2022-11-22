@@ -5,9 +5,12 @@ import com.dh.grupo01.clinicaodontologica.model.Dentista;
 import com.dh.grupo01.clinicaodontologica.model.Paciente;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
-
+@Service
 public class PacienteIMPLService {
 
     PacienteDao pacienteDao = new PacienteDao();
@@ -18,6 +21,7 @@ public class PacienteIMPLService {
     public ResponseEntity salvar(Paciente paciente){
 
         try{
+            paciente.setDataCadastro(Timestamp.from(Instant.now()));
             Paciente pacienteSalvo = pacienteDao.salvar(paciente);
             return new ResponseEntity("Paciente " + pacienteSalvo.getNome() + " criado com sucesso", HttpStatus.CREATED);
 

@@ -5,10 +5,12 @@ import com.dh.grupo01.clinicaodontologica.model.Consulta;
 import com.dh.grupo01.clinicaodontologica.model.Paciente;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 
+@Service
 public class ConsultaIMPLService {
 
     ConsultaDao consultaDao = new ConsultaDao();
