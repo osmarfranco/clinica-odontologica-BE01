@@ -8,6 +8,6 @@ import lombok.*;
 
 public class Dentista {
 
-    private int id;
+    private Long id;
     private String cro, nome, sobrenome; //cro é a matrícula do dentista, assim como a do médico é o crm
 }

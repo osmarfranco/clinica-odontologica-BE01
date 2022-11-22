@@ -3,6 +3,7 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 import com.dh.grupo01.clinicaodontologica.model.Consulta;
 import com.dh.grupo01.clinicaodontologica.service.impl.ConsultaIMPLService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ConsultaController {
     }
 
     @PostMapping()
-    public Consulta salvar(@RequestBody Consulta consulta){
+    public ResponseEntity salvar(@RequestBody Consulta consulta){
 
         return service.salvar(consulta);
     }

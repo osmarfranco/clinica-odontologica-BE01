@@ -5,13 +5,14 @@ import java.time.LocalDateTime;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class Consulta {
 
-    private int id;
+    private Long id;
     private String dataConsulta;
     private Dentista dentista;
     private Paciente paciente;

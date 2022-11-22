@@ -2,6 +2,7 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 import com.dh.grupo01.clinicaodontologica.model.Endereco;
 import com.dh.grupo01.clinicaodontologica.service.impl.EnderecoIMPLService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class EnderecoController {
         return service.buscar();
     }
     @PostMapping()
-    public Endereco salvar(@RequestBody Endereco endereco){
+    public ResponseEntity salvar(@RequestBody Endereco endereco){
 
         return service.salvar(endereco);
     }

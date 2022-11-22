@@ -2,6 +2,8 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.dao.DentistaDao;
 import com.dh.grupo01.clinicaodontologica.model.Dentista;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -15,9 +17,17 @@ public class DentistaIMPLService {
         return dentistaDao.buscar();
     }
 
-    public Dentista salvar(Dentista dentista){
+    public ResponseEntity salvar(Dentista dentista){
 
-        return dentistaDao.salvar(dentista);
+
+
+        try{
+            Dentista dentistaSalvo = dentistaDao.salvar(dentista);
+            return new ResponseEntity("Dentista " + dentistaSalvo.getNome() + " criado com sucesso", HttpStatus.CREATED);
+
+        }catch (Exception e){
+            return new ResponseEntity("Erro ao cadastrar dentista", HttpStatus.BAD_REQUEST);
+        }
 
     }
 

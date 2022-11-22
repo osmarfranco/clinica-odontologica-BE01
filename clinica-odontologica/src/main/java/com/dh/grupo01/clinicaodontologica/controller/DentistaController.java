@@ -2,6 +2,7 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 import com.dh.grupo01.clinicaodontologica.model.Dentista;
 import com.dh.grupo01.clinicaodontologica.service.impl.DentistaIMPLService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class DentistaController {
     }
 
     @PostMapping()
-    public Dentista salvar(@RequestBody Dentista dentista){
+    public ResponseEntity salvar(@RequestBody Dentista dentista){
 
         return service.salvar(dentista);
     }

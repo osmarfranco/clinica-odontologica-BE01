@@ -9,7 +9,8 @@ import lombok.*;
 
 public class Endereco {
 
-    private int id, numero;
+    private Long id;
+    private int numero;
     private String logradouro, complemento, bairro, cidade, estado, cep;
 
 }

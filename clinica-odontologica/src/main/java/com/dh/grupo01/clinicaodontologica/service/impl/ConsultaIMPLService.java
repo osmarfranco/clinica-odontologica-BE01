@@ -2,6 +2,9 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.dao.ConsultaDao;
 import com.dh.grupo01.clinicaodontologica.model.Consulta;
+import com.dh.grupo01.clinicaodontologica.model.Paciente;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 
 import java.util.List;
@@ -13,8 +16,16 @@ public class ConsultaIMPLService {
         return consultaDao.buscar();
     }
 
-    public Consulta salvar(Consulta consulta){
-        return consultaDao.salvar(consulta);
+    public ResponseEntity salvar(Consulta consulta){
+
+
+        try{
+            Consulta consultaSalva = consultaDao.salvar(consulta);
+            return new ResponseEntity("Consulta agendada com sucesso", HttpStatus.CREATED);
+
+        }catch (Exception e){
+            return new ResponseEntity("Erro ao agendar consulta", HttpStatus.BAD_REQUEST);
+        }
     }
 
     public Consulta deletar(Consulta consulta){
