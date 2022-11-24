@@ -1,10 +1,7 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
-import com.dh.grupo01.clinicaodontologica.dao.EnderecoDao;
-import com.dh.grupo01.clinicaodontologica.dao.PacienteDao;
-import com.dh.grupo01.clinicaodontologica.model.Dentista;
-import com.dh.grupo01.clinicaodontologica.model.Endereco;
-import com.dh.grupo01.clinicaodontologica.model.Paciente;
+import com.dh.grupo01.clinicaodontologica.repository.EnderecoDao;
+import com.dh.grupo01.clinicaodontologica.entity.Endereco;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
-import com.dh.grupo01.clinicaodontologica.dao.DentistaDao;
-import com.dh.grupo01.clinicaodontologica.model.Dentista;
+import com.dh.grupo01.clinicaodontologica.repository.DentistaDao;
+import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

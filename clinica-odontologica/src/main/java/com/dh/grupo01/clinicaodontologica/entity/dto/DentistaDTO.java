@@ -1,5 +1,6 @@
-package com.dh.grupo01.clinicaodontologica.model.dto;
+package com.dh.grupo01.clinicaodontologica.entity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DentistaDTO {
     private Long id;
     private String cro, nome, sobrenome;

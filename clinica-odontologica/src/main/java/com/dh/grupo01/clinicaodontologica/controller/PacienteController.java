@@ -1,6 +1,7 @@
 package com.dh.grupo01.clinicaodontologica.controller;
 
-import com.dh.grupo01.clinicaodontologica.model.Paciente;
+import com.dh.grupo01.clinicaodontologica.entity.Paciente;
+import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.service.impl.PacienteIMPLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class PacienteController {
     PacienteIMPLService service ;
 
     @GetMapping()
-    public List<Paciente> buscar(){
+    public List<PacienteDTO> buscar(){
         return service.buscar();
     }
 
@@ -27,17 +28,17 @@ public class PacienteController {
     }
 
     @DeleteMapping()
-    public Paciente deletar(@RequestBody Paciente paciente){
-        return service.deletar(paciente);
+    public Paciente deletar(@RequestParam("id") Long id){
+        return service.deletar(id);
     }
     @PatchMapping()
-    public Paciente alteracaoParcial(@RequestBody Paciente paciente){
-        return service.atualizarParcial(paciente);
-    }
-    @PutMapping()
-    public Paciente atualizar(@RequestBody Paciente paciente){
-        return service.atualizar(paciente);
-    }
+//    public Paciente alteracaoParcial(@RequestBody Paciente paciente){
+//        return service.atualizarParcial(paciente);
+//    }
+//    @PutMapping()
+//    public Paciente atualizar(@RequestBody Paciente paciente){
+//        return service.atualizar(paciente);
+//    }
 
 
 }

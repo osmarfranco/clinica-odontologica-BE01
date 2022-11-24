@@ -1,7 +1,7 @@
 package com.dh.grupo01.clinicaodontologica.controller;
 
 
-import com.dh.grupo01.clinicaodontologica.model.Consulta;
+import com.dh.grupo01.clinicaodontologica.entity.Consulta;
 import com.dh.grupo01.clinicaodontologica.service.impl.ConsultaIMPLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,7 @@ public class ConsultaController {
     @Autowired
     ConsultaIMPLService service;
 
+
     @GetMapping()
     public List<Consulta> buscar(){
         return service.buscar();
@@ -28,8 +29,8 @@ public class ConsultaController {
     }
 
     @DeleteMapping()
-    public Consulta deletar(@RequestBody Consulta consulta){
-        return service.deletar(consulta);
+    public Consulta deletar(@RequestParam("id") Long id){
+        return service.deletar(id);
     }
     @PatchMapping()
     public Consulta alteracaoParcial(@RequestBody Consulta consulta){

@@ -1,28 +1,41 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
-import com.dh.grupo01.clinicaodontologica.dao.PacienteDao;
-import com.dh.grupo01.clinicaodontologica.model.Dentista;
-import com.dh.grupo01.clinicaodontologica.model.Paciente;
+import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
+import com.dh.grupo01.clinicaodontologica.repository.PacienteDao;
+import com.dh.grupo01.clinicaodontologica.entity.Paciente;
+import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PacienteIMPLService {
+    @Autowired
+    PacienteRepository repository;
 
-    PacienteDao pacienteDao = new PacienteDao();
-    public List<Paciente> buscar(){
-        return pacienteDao.buscar();
+    public List<PacienteDTO> buscar(){
+        List<Paciente> listPaciente = repository.findAll();
+        List<PacienteDTO> listPacienteDTO = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        for (Paciente paciente : listPaciente) {
+            PacienteDTO pacienteDTO = mapper.convertValue(paciente, PacienteDTO.class);
+        }
+        return listPacienteDTO;
     }
 
     public ResponseEntity salvar(Paciente paciente){
 
         try{
             paciente.setDataCadastro(Timestamp.from(Instant.now()));
-            Paciente pacienteSalvo = pacienteDao.salvar(paciente);
+            Paciente pacienteSalvo = repository.save(paciente);
             return new ResponseEntity("Paciente " + pacienteSalvo.getNome() + " criado com sucesso", HttpStatus.CREATED);
 
         }catch (Exception e){
@@ -30,16 +43,22 @@ public class PacienteIMPLService {
         }
     }
 
-    public Paciente deletar(Paciente paciente){
-        return pacienteDao.deletar(paciente);
+    public Paciente deletar(Long id){
+        Optional<Paciente> paciente = repository.findById(id);
+        if (paciente.isEmpty()){
+            return new ResponseEntity("Id do produto não existe", HttpStatus.BAD_REQUEST);
+        }
+        repository.deleteById(id);
+        return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
+
     }
 
-    public Paciente atualizar(Paciente paciente){
-        return pacienteDao.atualizar(paciente);
-    }
+//    public Paciente atualizar(Paciente paciente){
+//        return pacienteDao.atualizar(paciente);
+//    }
 
-    public Paciente atualizarParcial(Paciente paciente){
-        return pacienteDao.atualizarParcial(paciente);
-    }
+//    public Paciente atualizarParcial(Paciente paciente){
+//        return pacienteDao.atualizarParcial(paciente);
+//    }
 
 }

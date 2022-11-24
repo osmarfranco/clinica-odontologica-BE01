@@ -1,8 +1,9 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
-import com.dh.grupo01.clinicaodontologica.dao.ConsultaDao;
-import com.dh.grupo01.clinicaodontologica.model.Consulta;
-import com.dh.grupo01.clinicaodontologica.model.Paciente;
+import com.dh.grupo01.clinicaodontologica.repository.ConsultaDao;
+import com.dh.grupo01.clinicaodontologica.entity.Consulta;
+import com.dh.grupo01.clinicaodontologica.repository.ConsultaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,16 +14,19 @@ import java.util.List;
 @Service
 public class ConsultaIMPLService {
 
-    ConsultaDao consultaDao = new ConsultaDao();
+
+    @Autowired
+    ConsultaRepository repository;
+    //ConsultaDao consultaDao = new ConsultaDao();
     public List<Consulta> buscar(){
-        return consultaDao.buscar();
+        return repository.findAll();
     }
 
     public ResponseEntity salvar(Consulta consulta){
 
 
         try{
-            Consulta consultaSalva = consultaDao.salvar(consulta);
+            Consulta consultaSalva = repository.save(consulta);
             return new ResponseEntity("Consulta agendada com sucesso", HttpStatus.CREATED);
 
         }catch (Exception e){
@@ -31,7 +35,8 @@ public class ConsultaIMPLService {
     }
 
     public Consulta deletar(Consulta consulta){
-        return consultaDao.deletar(consulta);
+        return repository.delete(consulta);
+        //return consultaDao.deletar(consulta);
     }
 
     public Consulta atualizar(Consulta consulta){

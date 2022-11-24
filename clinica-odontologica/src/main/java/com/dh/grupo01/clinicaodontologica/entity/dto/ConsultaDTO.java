@@ -1,7 +1,8 @@
-package com.dh.grupo01.clinicaodontologica.model.dto;
+package com.dh.grupo01.clinicaodontologica.entity.dto;
 
-import com.dh.grupo01.clinicaodontologica.model.Dentista;
-import com.dh.grupo01.clinicaodontologica.model.Paciente;
+import com.dh.grupo01.clinicaodontologica.entity.Dentista;
+import com.dh.grupo01.clinicaodontologica.entity.Paciente;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ConsultaDTO {
     private Long id;
     private String dataConsulta;
