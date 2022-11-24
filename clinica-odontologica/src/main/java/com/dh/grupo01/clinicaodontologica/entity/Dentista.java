@@ -16,5 +16,7 @@ public class Dentista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String cro, nome, sobrenome; //cro é a matrícula do dentista, assim como a do médico é o crm
+    private String cro; //cro é a matrícula do dentista, assim como a do médico é o crm
+    private String nome;
+    private String sobrenome;
 }

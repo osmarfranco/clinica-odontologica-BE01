@@ -12,7 +12,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnderecoDTO {
-    private Long id;
+
+    private String logradouro;
     private int numero;
-    private String logradouro, complemento, bairro, cidade, estado, cep;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private String estado;
+    private String cep;
+
 }

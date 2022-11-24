@@ -8,14 +8,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConsultaDTO {
-    private Long id;
-    private String dataConsulta;
+
+    private Timestamp dataHoraConsulta;
     private Dentista dentista;
     private Paciente paciente;
+
+    private LocalDate dataConsulta;
+    private LocalTime horaConsulta;
+
+    public LocalDate getDataConsulta() {
+        return dataHoraConsulta.toLocalDateTime().toLocalDate();
+    }
+
+    public LocalTime getHoraConsulta() {
+        return dataHoraConsulta.toLocalDateTime().toLocalTime();
+    }
 }

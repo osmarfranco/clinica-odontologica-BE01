@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -21,4 +22,8 @@ public class PacienteDTO {
     private String nome;
     private String sobrenome;
     private Endereco endereco;
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro.toLocalDateTime().toLocalDate();
+    }
 }

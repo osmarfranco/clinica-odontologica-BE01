@@ -29,17 +29,19 @@ public class ConsultaController {
     }
 
     @DeleteMapping()
-    public Consulta deletar(@RequestParam("id") Long id){
+    public ResponseEntity deletar(@RequestParam("id") Long id){
         return service.deletar(id);
     }
-    @PatchMapping()
-    public Consulta alteracaoParcial(@RequestBody Consulta consulta){
-        return service.atualizarParcial(consulta);
-    }
-    @PutMapping()
-    public Consulta atualizar(@RequestBody Consulta consulta){
-        return service.atualizar(consulta);
-    }
+
+//    @PatchMapping()
+//    public ResponseEntity alteracaoParcial(@RequestBody Consulta consulta){
+//        return service.atualizarParcial(consulta);
+//    }
+//    @PutMapping()
+//    public ResponseEntity atualizar(@RequestBody Consulta consulta){
+//
+//        return service.atualizar(consulta);
+//    }
 
 
 }

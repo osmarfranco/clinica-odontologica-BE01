@@ -1,7 +1,6 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
-import com.dh.grupo01.clinicaodontologica.repository.PacienteDao;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,6 +26,7 @@ public class PacienteIMPLService {
         ObjectMapper mapper = new ObjectMapper();
         for (Paciente paciente : listPaciente) {
             PacienteDTO pacienteDTO = mapper.convertValue(paciente, PacienteDTO.class);
+            listPacienteDTO.add(pacienteDTO);
         }
         return listPacienteDTO;
     }
@@ -43,10 +43,10 @@ public class PacienteIMPLService {
         }
     }
 
-    public Paciente deletar(Long id){
+    public ResponseEntity deletar(Long id){
         Optional<Paciente> paciente = repository.findById(id);
         if (paciente.isEmpty()){
-            return new ResponseEntity("Id do produto não existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Id do Paciente não existe", HttpStatus.BAD_REQUEST);
         }
         repository.deleteById(id);
         return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);

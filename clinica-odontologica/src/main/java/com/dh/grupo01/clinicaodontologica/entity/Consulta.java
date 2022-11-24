@@ -3,6 +3,7 @@ package com.dh.grupo01.clinicaodontologica.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -16,7 +17,7 @@ public class Consulta {
     private Long id;
 
     @Column(nullable = false)
-    private String dataConsulta;
+    private Timestamp dataHoraConsulta;
 
     @OneToOne
     private Dentista dentista;

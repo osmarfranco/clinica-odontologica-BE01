@@ -28,10 +28,10 @@ public class PacienteController {
     }
 
     @DeleteMapping()
-    public Paciente deletar(@RequestParam("id") Long id){
+    public ResponseEntity deletar(@RequestParam("id") Long id){
         return service.deletar(id);
     }
-    @PatchMapping()
+  //  @PatchMapping()
 //    public Paciente alteracaoParcial(@RequestBody Paciente paciente){
 //        return service.atualizarParcial(paciente);
 //    }
