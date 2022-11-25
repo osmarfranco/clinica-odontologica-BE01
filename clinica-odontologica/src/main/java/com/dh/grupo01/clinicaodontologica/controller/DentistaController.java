@@ -38,10 +38,10 @@ public class DentistaController {
         return service.deletar(id);
     }
 
-    @PutMapping("/put")
-    public ResponseEntity atualizarTotal(@RequestParam DentistaDTO dentistaDTO){
+    @PutMapping()
+    public ResponseEntity atualizarTotal( @RequestBody Dentista dentista){
 
-        return service.atualizarTotal(dentistaDTO);
+        return service.atualizarTotal(dentista);
     }
 
 

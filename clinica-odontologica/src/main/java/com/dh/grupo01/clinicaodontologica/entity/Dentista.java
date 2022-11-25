@@ -17,7 +17,7 @@ public class Dentista {
     @Column(nullable = false, unique = true)
     private String cro; //cro é a matrícula do dentista, assim como a do médico é o crm
 
-    @Column(nullable = false, length = 50)
+
     private String nome;
 
     private String sobrenome;

@@ -38,7 +38,7 @@ public class DentistaIMPLService {
             return new ResponseEntity("Dentista não encontrado", HttpStatus.BAD_REQUEST);
         }
         DentistaDTO dentistaDTO = mapper.convertValue(dentista, DentistaDTO.class);
-        return new ResponseEntity("teste",HttpStatus.OK);
+        return new ResponseEntity(dentistaDTO,HttpStatus.OK);
     }
 
     public ResponseEntity salvar(Dentista dentista){
@@ -64,18 +64,18 @@ public class DentistaIMPLService {
     }
 
 
+// PRECISA CRIAR UM NOVO FindBy para pegar os dados e alterar sem realizar o mapper pq buga. uso o mapper só
+// para testar se está vazio ou não. O mapper da erro pq o Optional é da classe dentista e ele não converte dentista em dentista
+    public ResponseEntity atualizarTotal(Dentista dentista) {
 
-    public ResponseEntity atualizarTotal(DentistaDTO dentistaDTO) {
-        ObjectMapper mapper = new ObjectMapper();
-        Optional<Dentista> dentista1 = repository.findByCro(dentistaDTO.getCro());
+        Optional<Dentista> dentista1 = repository.findByCro(dentista.getCro());
 
         if (dentista1.isEmpty()){
             return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
         }
-        Dentista dentistaToUpdate = mapper.convertValue(dentista1, Dentista.class);
-        dentistaToUpdate.setNome(dentistaDTO.getNome());
-        dentistaToUpdate.setSobrenome(dentistaDTO.getSobrenome());
-        System.out.println(dentistaToUpdate);
+        Dentista dentistaToUpdate = repository.findByCroIs(dentista.getCro());
+        dentistaToUpdate.setNome(dentista.getNome());
+        dentistaToUpdate.setSobrenome(dentista.getSobrenome());
         repository.save(dentistaToUpdate);
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
 
