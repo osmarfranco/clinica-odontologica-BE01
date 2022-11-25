@@ -1,5 +1,6 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
+import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
@@ -53,9 +54,20 @@ public class PacienteIMPLService {
 
     }
 
-//    public Paciente atualizar(Paciente paciente){
-//        return pacienteDao.atualizar(paciente);
-//    }
+    public ResponseEntity alteracaoTotal(Paciente paciente){
+
+        ObjectMapper mapper = new ObjectMapper();
+        Optional<Paciente> paciente1 = repository.findByRg(paciente.getRg());
+
+        if (paciente1.isEmpty()){
+            return new ResponseEntity("RG do Paciente não existe", HttpStatus.BAD_REQUEST);
+        }
+        Paciente pacienteToUpdate = mapper.convertValue(paciente1, Paciente.class);
+        pacienteToUpdate.setNome(paciente.getNome());
+        pacienteToUpdate.setSobrenome(paciente.getSobrenome());
+        repository.save(pacienteToUpdate);
+        return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
+    }
 
 //    public Paciente atualizarParcial(Paciente paciente){
 //        return pacienteDao.atualizarParcial(paciente);

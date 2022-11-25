@@ -1,5 +1,6 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
+import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
 import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import com.dh.grupo01.clinicaodontologica.repository.DentistaRepository;
@@ -30,9 +31,17 @@ public class DentistaIMPLService {
         return listDentistaDTO;
     }
 
+    public ResponseEntity buscarPorCro(String cro) {
+        ObjectMapper mapper = new ObjectMapper();
+        Optional<Dentista> dentista = repository.findByCro(cro);
+        if (dentista.isEmpty()){
+            return new ResponseEntity("Dentista não encontrado", HttpStatus.BAD_REQUEST);
+        }
+        DentistaDTO dentistaDTO = mapper.convertValue(dentista, DentistaDTO.class);
+        return new ResponseEntity("teste",HttpStatus.OK);
+    }
+
     public ResponseEntity salvar(Dentista dentista){
-
-
 
         try{
             Dentista dentistaSalvo = repository.save(dentista);
@@ -54,9 +63,27 @@ public class DentistaIMPLService {
 
     }
 
-//    public Dentista atualizar(Dentista dentista) {
-//        return dentistaDao.atualizar(dentista);
-//    }
+
+
+    public ResponseEntity atualizarTotal(DentistaDTO dentistaDTO) {
+        ObjectMapper mapper = new ObjectMapper();
+        Optional<Dentista> dentista1 = repository.findByCro(dentistaDTO.getCro());
+
+        if (dentista1.isEmpty()){
+            return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
+        }
+        Dentista dentistaToUpdate = mapper.convertValue(dentista1, Dentista.class);
+        dentistaToUpdate.setNome(dentistaDTO.getNome());
+        dentistaToUpdate.setSobrenome(dentistaDTO.getSobrenome());
+        System.out.println(dentistaToUpdate);
+        repository.save(dentistaToUpdate);
+        return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
+
+
+
+    }
+
+
 //
 //    public Dentista atualizarParcial(Dentista dentista) {
 //        return dentistaDao.atualizarParcial(dentista);

@@ -17,6 +17,11 @@ public class DentistaController {
     @Autowired
     DentistaIMPLService service;
 
+    @GetMapping("/buscarCro/{cro}")
+    public ResponseEntity buscarPorCro(@PathVariable String cro){
+        return service.buscarPorCro(cro);
+    }
+
     @GetMapping()
     public List<DentistaDTO> buscar(){
         return service.buscar();
@@ -32,15 +37,19 @@ public class DentistaController {
     public ResponseEntity deletar(@RequestParam("id") Long id){
         return service.deletar(id);
     }
+
+    @PutMapping("/put")
+    public ResponseEntity atualizarTotal(@RequestParam DentistaDTO dentistaDTO){
+
+        return service.atualizarTotal(dentistaDTO);
+    }
+
+
 //    @PatchMapping()
 //    public Dentista alteracaoParcial(@RequestBody Dentista dentista){
 //
 //        return service.atualizarParcial(dentista);
 //    }
-//    @PutMapping()
-//    public Dentista alteracaoTotal(@RequestBody Dentista dentista){
-//
-//        return service.atualizar(dentista);
-//    }
+
 //
 }

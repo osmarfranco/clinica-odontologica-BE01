@@ -33,15 +33,18 @@ public class ConsultaController {
         return service.deletar(id);
     }
 
-//    @PatchMapping()
-//    public ResponseEntity alteracaoParcial(@RequestBody Consulta consulta){
-//        return service.atualizarParcial(consulta);
-//    }
 //    @PutMapping()
 //    public ResponseEntity atualizar(@RequestBody Consulta consulta){
 //
 //        return service.atualizar(consulta);
 //    }
+
+
+//    @PatchMapping()
+//    public ResponseEntity alteracaoParcial(@RequestBody Consulta consulta){
+//        return service.atualizarParcial(consulta);
+//    }
+
 
 
 }

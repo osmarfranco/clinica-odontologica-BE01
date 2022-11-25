@@ -43,13 +43,12 @@ public class ConsultaIMPLService {
     }
 
 //    public ResponseEntity atualizar(Consulta consulta){
+//        ResponseEntity.f
 //
-//        Olha aqui amanhã VVVV
-//        https://stackoverflow.com/questions/39741102/how-to-beautifully-update-a-jpa-entity-in-spring-data
 //    }
-//
+
 //    public Consulta atualizarParcial(Consulta consulta){
-//        return consultaDao.atualizarParcial(consulta);
+//        return service.atualizarParcial(consulta);
 //    }
 
 }
