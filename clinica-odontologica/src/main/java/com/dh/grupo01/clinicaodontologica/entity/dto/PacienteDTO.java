@@ -23,7 +23,7 @@ public class PacienteDTO {
     private String sobrenome;
     private Endereco endereco;
 
-    public LocalDate getDataCadastro() {
-        return dataCadastro.toLocalDateTime().toLocalDate();
-    }
+//    public LocalDate getDataCadastro() {
+//        return dataCadastro.toLocalDateTime().toLocalDate();
+//    }
 }

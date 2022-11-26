@@ -34,8 +34,8 @@ public class DentistaController {
     }
 
     @DeleteMapping()
-    public ResponseEntity deletar(@RequestParam("id") Long id){
-        return service.deletar(id);
+    public ResponseEntity deletar(@RequestParam("cro") String cro){
+        return service.deletar(cro);
     }
 
     @PutMapping()
@@ -45,11 +45,11 @@ public class DentistaController {
     }
 
 
-//    @PatchMapping()
-//    public Dentista alteracaoParcial(@RequestBody Dentista dentista){
-//
-//        return service.atualizarParcial(dentista);
-//    }
+    @PatchMapping()
+    public ResponseEntity alteracaoParcial(@RequestBody Dentista dentista){
 
-//
+        return service.atualizarParcial(dentista);
+    }
+
+
 }

@@ -21,6 +21,10 @@ public class PacienteController {
         return service.buscar();
     }
 
+    @GetMapping("/buscarRg/{rg}")
+    public ResponseEntity buscarPorCro(@PathVariable String rg){
+        return service.buscarPorRg(rg);
+    }
     @PostMapping()
     public ResponseEntity salvar(@RequestBody Paciente paciente){
 
@@ -28,20 +32,20 @@ public class PacienteController {
     }
 
     @DeleteMapping()
-    public ResponseEntity deletar(@RequestParam("id") Long id){
-        return service.deletar(id);
+    public ResponseEntity deletar(@RequestParam("rg") String rg){
+        return service.deletar(rg);
     }
 
     @PutMapping()
-    public ResponseEntity alteracaoTotal(@RequestParam Paciente paciente){
-        return service.alteracaoTotal(paciente);
+    public ResponseEntity atualizarTotal(@RequestBody Paciente paciente){
+        return service.atualizarTotal(paciente);
     }
 
 
-  //  @PatchMapping()
-//    public Paciente alteracaoParcial(@RequestBody Paciente paciente){
-//        return service.atualizarParcial(paciente);
-//    }
+    @PatchMapping()
+    public ResponseEntity atualizarParcial(@RequestBody Paciente paciente){
+        return service.atualizarParcial(paciente);
+    }
 
 
 

@@ -1,6 +1,7 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.entity.Dentista;
+import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
@@ -32,6 +33,17 @@ public class PacienteIMPLService {
         return listPacienteDTO;
     }
 
+    public ResponseEntity buscarPorRg(String rg) {
+        ObjectMapper mapper = new ObjectMapper();
+        Optional<Paciente> paciente = repository.findByRg(rg);
+        if (paciente.isEmpty()){
+            return new ResponseEntity("Paciente não encontrado", HttpStatus.BAD_REQUEST);
+        }
+        Paciente paciente1 = repository.findByRgIs(rg);
+        PacienteDTO pacienteDTO = mapper.convertValue(paciente1, PacienteDTO.class);
+        return new ResponseEntity(pacienteDTO,HttpStatus.OK);
+    }
+
     public ResponseEntity salvar(Paciente paciente){
 
         try{
@@ -44,33 +56,45 @@ public class PacienteIMPLService {
         }
     }
 
-    public ResponseEntity deletar(Long id){
-        Optional<Paciente> paciente = repository.findById(id);
+    public ResponseEntity deletar(String rg){
+        Optional<Paciente> paciente = repository.findByRg(rg);
         if (paciente.isEmpty()){
             return new ResponseEntity("Id do Paciente não existe", HttpStatus.BAD_REQUEST);
         }
-        repository.deleteById(id);
+        repository.deleteById(paciente.get().getId());
         return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
 
     }
 
-    public ResponseEntity alteracaoTotal(Paciente paciente){
+    public ResponseEntity atualizarTotal(Paciente paciente){
 
-        ObjectMapper mapper = new ObjectMapper();
         Optional<Paciente> paciente1 = repository.findByRg(paciente.getRg());
 
         if (paciente1.isEmpty()){
             return new ResponseEntity("RG do Paciente não existe", HttpStatus.BAD_REQUEST);
         }
-        Paciente pacienteToUpdate = mapper.convertValue(paciente1, Paciente.class);
+        Paciente pacienteToUpdate = repository.findByRgIs(paciente.getRg());
         pacienteToUpdate.setNome(paciente.getNome());
         pacienteToUpdate.setSobrenome(paciente.getSobrenome());
         repository.save(pacienteToUpdate);
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
     }
 
-//    public Paciente atualizarParcial(Paciente paciente){
-//        return pacienteDao.atualizarParcial(paciente);
-//    }
+    public ResponseEntity atualizarParcial(Paciente paciente){
+        Optional<Paciente> paciente1 = repository.findByRg(paciente.getRg());
+
+        if (paciente1.isEmpty()){
+            return new ResponseEntity("RG do Paciente não existe", HttpStatus.BAD_REQUEST);
+        }
+        Paciente dentistaToUpdate = repository.findByRgIs(paciente.getRg());
+        if(paciente.getNome() != null) {
+            dentistaToUpdate.setNome(paciente.getNome());
+        }
+        if (paciente.getSobrenome() != null){
+            dentistaToUpdate.setSobrenome(paciente.getSobrenome());
+        }
+        repository.save(dentistaToUpdate);
+        return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
+    }
 
 }

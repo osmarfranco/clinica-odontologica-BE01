@@ -15,9 +15,14 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Timestamp dataCadastro;
+    @Column(nullable = false, unique = true)
     private String rg;
+
+    private Timestamp dataCadastro;
+
+
     private String nome;
+
     private String sobrenome;
 
     @OneToOne
