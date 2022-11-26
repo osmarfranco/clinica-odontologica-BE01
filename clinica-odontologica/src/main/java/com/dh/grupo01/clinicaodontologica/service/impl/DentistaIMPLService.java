@@ -42,7 +42,7 @@ public class DentistaIMPLService {
             return new ResponseEntity("Dentista não encontrado", HttpStatus.BAD_REQUEST);
         }
         Dentista dentista1 = repository.findByCroIs(cro);
-        DentistaDTO dentistaDTO = mapper.convertValue(dentista, DentistaDTO.class);
+        DentistaDTO dentistaDTO = mapper.convertValue(dentista1, DentistaDTO.class);
         return new ResponseEntity(dentistaDTO,HttpStatus.OK);
     }
 
