@@ -11,5 +11,4 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     Optional<Paciente> findByRg(String rg);
 
-    Paciente findByRgIs(String rg);
 }

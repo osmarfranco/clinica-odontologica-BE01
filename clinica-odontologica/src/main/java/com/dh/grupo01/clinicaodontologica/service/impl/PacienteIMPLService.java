@@ -73,7 +73,7 @@ public class PacienteIMPLService {
         if (paciente1.isEmpty()){
             return new ResponseEntity("RG do Paciente não existe", HttpStatus.BAD_REQUEST);
         }
-        Paciente pacienteToUpdate = repository.findByRgIs(paciente.getRg());
+        Paciente pacienteToUpdate = paciente1.get();
         pacienteToUpdate.setNome(paciente.getNome());
         pacienteToUpdate.setSobrenome(paciente.getSobrenome());
         repository.save(pacienteToUpdate);
@@ -86,7 +86,7 @@ public class PacienteIMPLService {
         if (paciente1.isEmpty()){
             return new ResponseEntity("RG do Paciente não existe", HttpStatus.BAD_REQUEST);
         }
-        Paciente dentistaToUpdate = repository.findByRgIs(paciente.getRg());
+        Paciente dentistaToUpdate = paciente1.get();
         if(paciente.getNome() != null) {
             dentistaToUpdate.setNome(paciente.getNome());
         }

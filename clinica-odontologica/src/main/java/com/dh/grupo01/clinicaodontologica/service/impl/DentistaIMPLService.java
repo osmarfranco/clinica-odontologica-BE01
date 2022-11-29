@@ -80,7 +80,7 @@ public class DentistaIMPLService {
         if (dentista1.isEmpty()){
             return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
         }
-        Dentista dentistaToUpdate = repository.findByCroIs(dentista.getCro());
+        Dentista dentistaToUpdate = dentista1.get();
         dentistaToUpdate.setNome(dentista.getNome());
         dentistaToUpdate.setSobrenome(dentista.getSobrenome());
         repository.save(dentistaToUpdate);
@@ -99,7 +99,7 @@ public class DentistaIMPLService {
         if (dentista1.isEmpty()){
             return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
         }
-        Dentista dentistaToUpdate = repository.findByCroIs(dentista.getCro());
+        Dentista dentistaToUpdate = dentista1.get();
         if(dentista.getNome() != null) {
             dentistaToUpdate.setNome(dentista.getNome());
         }

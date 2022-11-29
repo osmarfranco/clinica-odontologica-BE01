@@ -14,8 +14,6 @@ public interface DentistaRepository extends JpaRepository<Dentista, Long> {
 
     Optional<Dentista> findByCro(String cro);
 
-    Dentista findByCroIs(String cro);
-
 
 }
 
