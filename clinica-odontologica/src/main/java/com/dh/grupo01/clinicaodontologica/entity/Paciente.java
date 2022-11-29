@@ -25,7 +25,7 @@ public class Paciente {
 
     private String sobrenome;
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private Endereco endereco;
 
 }

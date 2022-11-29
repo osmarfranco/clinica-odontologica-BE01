@@ -39,7 +39,7 @@ public class PacienteIMPLService {
         if (paciente.isEmpty()){
             return new ResponseEntity("Paciente não encontrado", HttpStatus.BAD_REQUEST);
         }
-        Paciente paciente1 = repository.findByRgIs(rg);
+        Paciente paciente1 = paciente.get();
         PacienteDTO pacienteDTO = mapper.convertValue(paciente1, PacienteDTO.class);
         return new ResponseEntity(pacienteDTO,HttpStatus.OK);
     }
