@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
@@ -18,12 +20,14 @@ import java.time.LocalDate;
 public class PacienteDTO {
 
     private Timestamp dataCadastro;
-    private String rg;
+    @NotBlank
+    @CPF
+    private String cpf;
+    @NotBlank
     private String nome;
+    @NotBlank
     private String sobrenome;
+    //Endereço não precisa de @NotBlank pois é chave estrangeira, ao menos é oq achamos...
     private Endereco endereco;
 
-//    public LocalDate getDataCadastro() {
-//        return dataCadastro.toLocalDateTime().toLocalDate();
-//    }
 }

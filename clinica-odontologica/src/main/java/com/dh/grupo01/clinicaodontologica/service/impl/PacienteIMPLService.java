@@ -1,7 +1,6 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
-import com.dh.grupo01.clinicaodontologica.entity.Dentista;
-import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
+
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
@@ -33,9 +32,9 @@ public class PacienteIMPLService {
         return listPacienteDTO;
     }
 
-    public ResponseEntity buscarPorRg(String rg) {
+    public ResponseEntity buscarPorCpf(String cpf) {
         ObjectMapper mapper = new ObjectMapper();
-        Optional<Paciente> paciente = repository.findByRg(rg);
+        Optional<Paciente> paciente = repository.findByCpf(cpf);
         if (paciente.isEmpty()){
             return new ResponseEntity("Paciente não encontrado", HttpStatus.BAD_REQUEST);
         }
@@ -44,8 +43,10 @@ public class PacienteIMPLService {
         return new ResponseEntity(pacienteDTO,HttpStatus.OK);
     }
 
-    public ResponseEntity salvar(Paciente paciente){
+    public ResponseEntity salvar(PacienteDTO pacienteDTO){
 
+        ObjectMapper mapper = new ObjectMapper();
+        Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
         try{
             paciente.setDataCadastro(Timestamp.from(Instant.now()));
             Paciente pacienteSalvo = repository.save(paciente);
@@ -56,42 +57,43 @@ public class PacienteIMPLService {
         }
     }
 
-    public ResponseEntity deletar(String rg){
-        Optional<Paciente> paciente = repository.findByRg(rg);
+    public ResponseEntity deletar(String cpf){
+        Optional<Paciente> paciente = repository.findByCpf(cpf);
         if (paciente.isEmpty()){
-            return new ResponseEntity("Id do Paciente não existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("CPF do Paciente não existe", HttpStatus.BAD_REQUEST);
         }
         repository.deleteById(paciente.get().getId());
         return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
 
     }
 
-    public ResponseEntity atualizarTotal(Paciente paciente){
+    public ResponseEntity atualizarTotal(PacienteDTO pacienteDTO){
 
-        Optional<Paciente> paciente1 = repository.findByRg(paciente.getRg());
+
+        Optional<Paciente> paciente1 = repository.findByCpf(pacienteDTO.getCpf());
 
         if (paciente1.isEmpty()){
-            return new ResponseEntity("RG do Paciente não existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("CPF do Paciente não existe", HttpStatus.BAD_REQUEST);
         }
         Paciente pacienteToUpdate = paciente1.get();
-        pacienteToUpdate.setNome(paciente.getNome());
-        pacienteToUpdate.setSobrenome(paciente.getSobrenome());
+        pacienteToUpdate.setNome(pacienteDTO.getNome());
+        pacienteToUpdate.setSobrenome(pacienteDTO.getSobrenome());
         repository.save(pacienteToUpdate);
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
     }
 
-    public ResponseEntity atualizarParcial(Paciente paciente){
-        Optional<Paciente> paciente1 = repository.findByRg(paciente.getRg());
+    public ResponseEntity atualizarParcial(PacienteDTO pacienteDTO){
+        Optional<Paciente> paciente1 = repository.findByCpf(pacienteDTO.getCpf());
 
         if (paciente1.isEmpty()){
-            return new ResponseEntity("RG do Paciente não existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("CPF do Paciente não existe", HttpStatus.BAD_REQUEST);
         }
         Paciente dentistaToUpdate = paciente1.get();
-        if(paciente.getNome() != null) {
-            dentistaToUpdate.setNome(paciente.getNome());
+        if(pacienteDTO.getNome() != null) {
+            dentistaToUpdate.setNome(pacienteDTO.getNome());
         }
-        if (paciente.getSobrenome() != null){
-            dentistaToUpdate.setSobrenome(paciente.getSobrenome());
+        if (pacienteDTO.getSobrenome() != null){
+            dentistaToUpdate.setSobrenome(pacienteDTO.getSobrenome());
         }
         repository.save(dentistaToUpdate);
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,30 +22,29 @@ public class PacienteController {
         return service.buscar();
     }
 
-    @GetMapping("/buscarRg/{rg}")
-    public ResponseEntity buscarPorCro(@PathVariable String rg){
-        return service.buscarPorRg(rg);
+    @GetMapping("/buscarCpf/{cpf}")
+    public ResponseEntity buscarPorCpf(@PathVariable String cpf){
+        return service.buscarPorCpf(cpf);
     }
     @PostMapping()
-    public ResponseEntity salvar(@RequestBody Paciente paciente){
-
-        return service.salvar(paciente);
+    public ResponseEntity salvar(@RequestBody @Valid PacienteDTO pacienteDTO){
+        return service.salvar(pacienteDTO);
     }
 
     @DeleteMapping()
-    public ResponseEntity deletar(@RequestParam("rg") String rg){
-        return service.deletar(rg);
+    public ResponseEntity deletar(@RequestParam("cpf") String cpf){
+        return service.deletar(cpf);
     }
 
     @PutMapping()
-    public ResponseEntity atualizarTotal(@RequestBody Paciente paciente){
-        return service.atualizarTotal(paciente);
+    public ResponseEntity atualizarTotal(@RequestBody PacienteDTO pacienteDTO){
+        return service.atualizarTotal(pacienteDTO);
     }
 
 
     @PatchMapping()
-    public ResponseEntity atualizarParcial(@RequestBody Paciente paciente){
-        return service.atualizarParcial(paciente);
+    public ResponseEntity atualizarParcial(@RequestBody PacienteDTO pacienteDTO){
+        return service.atualizarParcial(pacienteDTO);
     }
 
 

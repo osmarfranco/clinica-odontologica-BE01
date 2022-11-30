@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -15,11 +17,11 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(nullable = false, unique = true)
-    private String rg;
+    private String cpf;
 
     private Timestamp dataCadastro;
-
 
     private String nome;
 

@@ -16,6 +16,8 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String idConsulta;
+
     @Column(nullable = false)
     private Timestamp dataHoraConsulta;
 

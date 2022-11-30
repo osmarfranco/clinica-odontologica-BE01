@@ -46,7 +46,10 @@ public class DentistaIMPLService {
         return new ResponseEntity(dentistaDTO,HttpStatus.OK);
     }
 
-    public ResponseEntity salvar(Dentista dentista){
+    public ResponseEntity salvar(DentistaDTO dentistaDTO){
+
+        ObjectMapper mapper = new ObjectMapper();
+        Dentista dentista = mapper.convertValue(dentistaDTO, Dentista.class);
 
         try{
             Dentista dentistaSalvo = repository.save(dentista);
@@ -73,16 +76,16 @@ public class DentistaIMPLService {
 
 // PRECISA CRIAR UM NOVO FindBy para pegar os dados e alterar sem realizar o mapper como no buscar por ID.
 
-    public ResponseEntity atualizarTotal(Dentista dentista) {
+    public ResponseEntity atualizarTotal(DentistaDTO dentistaDTO) {
 
-        Optional<Dentista> dentista1 = repository.findByCro(dentista.getCro());
+        Optional<Dentista> dentista1 = repository.findByCro(dentistaDTO.getCro());
 
         if (dentista1.isEmpty()){
             return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
         }
         Dentista dentistaToUpdate = dentista1.get();
-        dentistaToUpdate.setNome(dentista.getNome());
-        dentistaToUpdate.setSobrenome(dentista.getSobrenome());
+        dentistaToUpdate.setNome(dentistaDTO.getNome());
+        dentistaToUpdate.setSobrenome(dentistaDTO.getSobrenome());
         repository.save(dentistaToUpdate);
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
 
@@ -93,18 +96,18 @@ public class DentistaIMPLService {
 
     // Usamos a mesma estrutura do atualizarTotal e só colocamos uma validação de caso algum campo não venha nulo
     // atualizamos aquele(s) campo(s)
-    public ResponseEntity atualizarParcial(Dentista dentista) {
-        Optional<Dentista> dentista1 = repository.findByCro(dentista.getCro());
+    public ResponseEntity atualizarParcial(DentistaDTO dentistaDTO) {
+        Optional<Dentista> dentista1 = repository.findByCro(dentistaDTO.getCro());
 
         if (dentista1.isEmpty()){
             return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
         }
         Dentista dentistaToUpdate = dentista1.get();
-        if(dentista.getNome() != null) {
-            dentistaToUpdate.setNome(dentista.getNome());
+        if(dentistaDTO.getNome() != null) {
+            dentistaToUpdate.setNome(dentistaDTO.getNome());
         }
-        if (dentista.getSobrenome() != null){
-            dentistaToUpdate.setSobrenome(dentista.getSobrenome());
+        if (dentistaDTO.getSobrenome() != null){
+            dentistaToUpdate.setSobrenome(dentistaDTO.getSobrenome());
         }
         repository.save(dentistaToUpdate);
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
