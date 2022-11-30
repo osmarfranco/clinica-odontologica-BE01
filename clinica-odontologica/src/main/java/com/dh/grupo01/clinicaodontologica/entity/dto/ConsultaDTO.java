@@ -2,6 +2,7 @@ package com.dh.grupo01.clinicaodontologica.entity.dto;
 
 import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConsultaDTO {
+
 
     private Timestamp dataHoraConsulta;
     private Dentista dentista;

@@ -2,13 +2,16 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 
 import com.dh.grupo01.clinicaodontologica.entity.Consulta;
+import com.dh.grupo01.clinicaodontologica.entity.dto.ConsultaDTO;
 import com.dh.grupo01.clinicaodontologica.repository.ConsultaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +25,9 @@ public class ConsultaIMPLService {
         return repository.findAll();
     }
 
-    public ResponseEntity salvar(Consulta consulta){
+    public ResponseEntity salvar(ConsultaDTO consultaDTO){
+        ObjectMapper mapper = new ObjectMapper();
+        Consulta consulta = mapper.convertValue(consultaDTO, Consulta.class);
         try{
             repository.save(consulta);
             return new ResponseEntity("Consulta agendada com sucesso", HttpStatus.CREATED);

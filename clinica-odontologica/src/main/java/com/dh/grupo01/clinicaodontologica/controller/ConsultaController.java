@@ -2,6 +2,7 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 
 import com.dh.grupo01.clinicaodontologica.entity.Consulta;
+import com.dh.grupo01.clinicaodontologica.entity.dto.ConsultaDTO;
 import com.dh.grupo01.clinicaodontologica.service.impl.ConsultaIMPLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,9 @@ public class ConsultaController {
     }
 
     @PostMapping()
-    public ResponseEntity salvar(@RequestBody Consulta consulta){
+    public ResponseEntity salvar(@RequestBody ConsultaDTO consultaDTO){
 
-        return service.salvar(consulta);
+        return service.salvar(consultaDTO);
     }
 
     @DeleteMapping()
@@ -34,7 +35,7 @@ public class ConsultaController {
     }
 
 //    @PutMapping()
-//    public ResponseEntity atualizar(@RequestBody Consulta consulta){
+//    public ResponseEntity atualizar(@RequestBody ConsultaDto consulta){
 //
 //        return service.atualizar(consulta);
 //    }
