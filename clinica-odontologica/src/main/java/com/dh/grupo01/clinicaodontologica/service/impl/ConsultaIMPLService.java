@@ -2,8 +2,12 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 
 import com.dh.grupo01.clinicaodontologica.entity.Consulta;
+import com.dh.grupo01.clinicaodontologica.entity.Dentista;
+import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.ConsultaDTO;
 import com.dh.grupo01.clinicaodontologica.repository.ConsultaRepository;
+import com.dh.grupo01.clinicaodontologica.repository.DentistaRepository;
+import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +25,10 @@ public class ConsultaIMPLService {
 
     @Autowired
     ConsultaRepository repository;
+    @Autowired
+    DentistaRepository repositoryDent;
+    @Autowired
+    PacienteRepository repositoryPac;
     public List<Consulta> buscar(){
         return repository.findAll();
     }
@@ -28,6 +36,11 @@ public class ConsultaIMPLService {
     public ResponseEntity salvar(ConsultaDTO consultaDTO){
         ObjectMapper mapper = new ObjectMapper();
         Consulta consulta = mapper.convertValue(consultaDTO, Consulta.class);
+        Optional<Dentista> dentistaId = repositoryDent.findByCro(consultaDTO.getDentista().getCro());
+        Optional<Paciente> pacienteId = repositoryPac.findByCpf(consultaDTO.getPaciente().getCpf());
+        consulta.getDentista().setId(dentistaId.get().getId());
+        consulta.getPaciente().setId(pacienteId.get().getId());
+        consulta.setIdConsulta(consulta.getDataHoraConsulta().toString() + consulta.getPaciente().getCpf() + consulta.getDentista().getCro());
         try{
             repository.save(consulta);
             return new ResponseEntity("Consulta agendada com sucesso", HttpStatus.CREATED);

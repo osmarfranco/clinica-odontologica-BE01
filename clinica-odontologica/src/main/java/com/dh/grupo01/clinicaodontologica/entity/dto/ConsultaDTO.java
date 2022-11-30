@@ -25,14 +25,5 @@ public class ConsultaDTO {
     private Dentista dentista;
     private Paciente paciente;
 
-    private LocalDate dataConsulta;
-    private LocalTime horaConsulta;
 
-    public LocalDate getDataConsulta() {
-        return dataHoraConsulta.toLocalDateTime().toLocalDate();
-    }
-
-    public LocalTime getHoraConsulta() {
-        return dataHoraConsulta.toLocalDateTime().toLocalTime();
-    }
 }
