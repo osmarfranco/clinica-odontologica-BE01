@@ -19,8 +19,13 @@ public class ConsultaController {
 
 
     @GetMapping()
-    public List<Consulta> buscar(){
+    public List<ConsultaDTO> buscar(){
         return service.buscar();
+    }
+
+    @GetMapping("/buscarIdConsulta/{idConsulta}")
+    public ResponseEntity buscarPorId(@PathVariable String idConsulta){
+        return service.buscarPorId(idConsulta);
     }
 
     @PostMapping()
@@ -30,8 +35,8 @@ public class ConsultaController {
     }
 
     @DeleteMapping()
-    public ResponseEntity deletar(@RequestParam("id") Long id){
-        return service.deletar(id);
+    public ResponseEntity deletar(@RequestParam("idConsulta") String idConsulta){
+        return service.deletar(idConsulta);
     }
 
 //    @PutMapping()

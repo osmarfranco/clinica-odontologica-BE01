@@ -20,7 +20,7 @@ import java.time.LocalTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConsultaDTO {
 
-
+    private String idConsulta;
     private Timestamp dataHoraConsulta;
     private Dentista dentista;
     private Paciente paciente;

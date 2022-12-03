@@ -5,6 +5,7 @@ import com.dh.grupo01.clinicaodontologica.entity.Consulta;
 import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.ConsultaDTO;
+import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
 import com.dh.grupo01.clinicaodontologica.repository.ConsultaRepository;
 import com.dh.grupo01.clinicaodontologica.repository.DentistaRepository;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +31,26 @@ public class ConsultaIMPLService {
     DentistaRepository repositoryDent;
     @Autowired
     PacienteRepository repositoryPac;
-    public List<Consulta> buscar(){
-        return repository.findAll();
+    public List<ConsultaDTO> buscar(){
+        List<Consulta> listConsulta = repository.findAll();
+        List<ConsultaDTO> listConsultaDTO = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        for (Consulta consulta : listConsulta) {
+            ConsultaDTO consultaDTO = mapper.convertValue(consulta, ConsultaDTO.class);
+            listConsultaDTO.add(consultaDTO);
+        }
+        return listConsultaDTO;
+    }
+
+    public ResponseEntity buscarPorId(String idConsulta){
+        ObjectMapper mapper = new ObjectMapper();
+        Optional<Consulta> consulta = repository.findByIdConsulta(idConsulta);
+        if (consulta.isEmpty()){
+            return new ResponseEntity("Consulta não encontrada", HttpStatus.BAD_REQUEST);
+        }
+        Consulta consulta1 = consulta.get();
+        ConsultaDTO consultaDTO = mapper.convertValue(consulta1, ConsultaDTO.class);
+        return new ResponseEntity(consultaDTO,HttpStatus.OK);
     }
 
     public ResponseEntity salvar(ConsultaDTO consultaDTO){
@@ -50,18 +70,29 @@ public class ConsultaIMPLService {
         }
     }
 
-    public ResponseEntity deletar(Long id){
-        Optional<Consulta> consulta = repository.findById(id);
+    public ResponseEntity deletar(String idConsulta){
+        Optional<Consulta> consulta = repository.findByIdConsulta(idConsulta);
         if (consulta.isEmpty()){
-            return new ResponseEntity("Id da consulta não existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Id da Consulta não existe", HttpStatus.BAD_REQUEST);
         }
-        repository.deleteById(id);
-        return new ResponseEntity("Excluido com sucesso", HttpStatus.OK);
+        repository.deleteById(consulta.get().getId());
+        return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
 
     }
 
-//    public ResponseEntity atualizar(Consulta consulta){
-//        ResponseEntity.f
+//    public ResponseEntity atualizarTotal(ConsultaDTO consultaDTO) {
+//
+//        Optional<Consulta> consulta = repository.findByIdConsulta(consultaDTO.getIdConsulta());
+//
+//        if (consulta.isEmpty()){
+//            return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
+//        }
+//        Consulta consultaToUpdate = consulta.get();
+//        consultaToUpdate.setDataHoraConsulta(consultaDTO.getDataHoraConsulta());
+//        repository.save(consultaToUpdate);
+//        return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
+//
+//
 //
 //    }
 
