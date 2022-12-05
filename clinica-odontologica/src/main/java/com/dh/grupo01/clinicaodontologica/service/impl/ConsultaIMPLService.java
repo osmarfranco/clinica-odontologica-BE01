@@ -5,7 +5,6 @@ import com.dh.grupo01.clinicaodontologica.entity.Consulta;
 import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.ConsultaDTO;
-import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
 import com.dh.grupo01.clinicaodontologica.repository.ConsultaRepository;
 import com.dh.grupo01.clinicaodontologica.repository.DentistaRepository;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
@@ -15,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
