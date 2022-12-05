@@ -1,5 +1,6 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
+import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
 import com.dh.grupo01.clinicaodontologica.entity.Endereco;
 import com.dh.grupo01.clinicaodontologica.repository.EnderecoRepository;
@@ -31,7 +32,10 @@ public class EnderecoIMPLService {
         return listEnderecoDTO;
     }
 
-    public ResponseEntity salvar(Endereco endereco){
+    public ResponseEntity salvar(EnderecoDTO enderecoDTO){
+
+        ObjectMapper mapper = new ObjectMapper();
+        Endereco endereco = mapper.convertValue(enderecoDTO, Endereco.class);
 
         try{
             Endereco enderecoSalvo = repository.save(endereco);

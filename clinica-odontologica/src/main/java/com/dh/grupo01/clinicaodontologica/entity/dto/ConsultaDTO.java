@@ -22,8 +22,8 @@ public class ConsultaDTO {
 
     private String idConsulta;
     private Timestamp dataHoraConsulta;
-    private Dentista dentista;
-    private Paciente paciente;
+    private DentistaDTO dentista;
+    private PacienteDTO paciente;
 
 
 }

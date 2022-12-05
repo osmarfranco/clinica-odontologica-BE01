@@ -28,6 +28,6 @@ public class PacienteDTO {
     @NotBlank
     private String sobrenome;
     //Endereço não precisa de @NotBlank pois é chave estrangeira, ao menos é oq achamos...
-    private Endereco endereco;
+    private EnderecoDTO endereco;
 
 }

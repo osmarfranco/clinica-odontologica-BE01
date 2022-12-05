@@ -21,9 +21,9 @@ public class EnderecoController {
         return service.buscar();
     }
     @PostMapping()
-    public ResponseEntity salvar(@RequestBody Endereco endereco){
+    public ResponseEntity salvar(@RequestBody EnderecoDTO enderecoDTO){
 
-        return service.salvar(endereco);
+        return service.salvar(enderecoDTO);
     }
     @DeleteMapping()
     public ResponseEntity deletar(@RequestParam("id") Long id){
