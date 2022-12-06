@@ -4,6 +4,8 @@ import com.dh.grupo01.clinicaodontologica.entity.dto.ConsultaDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
+import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
+import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +28,7 @@ class ConsultaIMPLServiceTest {
 
     //Criando um paciente, um dentista e uma consulta para testar o buscar e o deletar
     @BeforeEach
-    public void inicio(){
+    public void inicio() throws CadastroInvalidoException {
         //Paciente
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setCpf("765.319.122-35");
@@ -63,7 +65,7 @@ class ConsultaIMPLServiceTest {
 
     //Teste do método Salvar
     @Test
-    void salvar(){
+    void salvar() throws CadastroInvalidoException{
 
         //Criando e setando novos dados
         //Paciente

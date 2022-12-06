@@ -3,8 +3,12 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
+import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
+import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class PacienteIMPLService {
     @Autowired
     PacienteRepository repository;
@@ -32,18 +37,18 @@ public class PacienteIMPLService {
         return listPacienteDTO;
     }
 
-    public ResponseEntity buscarPorCpf(String cpf) {
+    public ResponseEntity buscarPorCpf(String cpf) throws ResourceNotFoundException{
         ObjectMapper mapper = new ObjectMapper();
         Optional<Paciente> paciente = repository.findByCpf(cpf);
         if (paciente.isEmpty()){
-            return new ResponseEntity("Paciente não encontrado", HttpStatus.BAD_REQUEST);
+            throw  new ResourceNotFoundException("Paciente não encontrado");
         }
         Paciente paciente1 = paciente.get();
         PacienteDTO pacienteDTO = mapper.convertValue(paciente1, PacienteDTO.class);
         return new ResponseEntity(pacienteDTO,HttpStatus.OK);
     }
 
-    public ResponseEntity salvar(PacienteDTO pacienteDTO){
+    public ResponseEntity salvar(PacienteDTO pacienteDTO) throws CadastroInvalidoException {
 
         ObjectMapper mapper = new ObjectMapper();
         Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
@@ -53,27 +58,29 @@ public class PacienteIMPLService {
             return new ResponseEntity("Paciente " + pacienteSalvo.getNome() + " criado com sucesso", HttpStatus.CREATED);
 
         }catch (Exception e){
-            return new ResponseEntity("Erro ao cadastrar paciente", HttpStatus.BAD_REQUEST);
+            throw  new CadastroInvalidoException("Paciente não cadastrado");
         }
     }
 
-    public ResponseEntity deletar(String cpf){
+
+
+    public ResponseEntity deletar(String cpf) throws ResourceNotFoundException{
         Optional<Paciente> paciente = repository.findByCpf(cpf);
         if (paciente.isEmpty()){
-            return new ResponseEntity("CPF do Paciente não existe", HttpStatus.BAD_REQUEST);
+            throw  new ResourceNotFoundException("Paciente não encontrado");
         }
         repository.deleteById(paciente.get().getId());
         return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
 
     }
 
-    public ResponseEntity atualizarTotal(PacienteDTO pacienteDTO){
+    public ResponseEntity atualizarTotal(PacienteDTO pacienteDTO) throws ResourceNotFoundException{
 
 
         Optional<Paciente> paciente1 = repository.findByCpf(pacienteDTO.getCpf());
 
         if (paciente1.isEmpty()){
-            return new ResponseEntity("CPF do Paciente não existe", HttpStatus.BAD_REQUEST);
+            throw  new ResourceNotFoundException("Paciente não encontrado");
         }
         Paciente pacienteToUpdate = paciente1.get();
         pacienteToUpdate.setNome(pacienteDTO.getNome());
@@ -82,11 +89,11 @@ public class PacienteIMPLService {
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
     }
 
-    public ResponseEntity atualizarParcial(PacienteDTO pacienteDTO){
+    public ResponseEntity atualizarParcial(PacienteDTO pacienteDTO) throws ResourceNotFoundException{
         Optional<Paciente> paciente1 = repository.findByCpf(pacienteDTO.getCpf());
 
         if (paciente1.isEmpty()){
-            return new ResponseEntity("CPF do Paciente não existe", HttpStatus.BAD_REQUEST);
+            throw  new ResourceNotFoundException("Paciente não encontrado");
         }
         Paciente dentistaToUpdate = paciente1.get();
         if(pacienteDTO.getNome() != null) {

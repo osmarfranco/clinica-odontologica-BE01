@@ -2,6 +2,8 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
+import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
+import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +20,7 @@ class PacienteIMPLServiceTest {
 
     //Criando um paciente e um endereço para testar nos outros métodos
     @BeforeEach
-    public void inicio(){
+    public void inicio() throws CadastroInvalidoException{
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setCpf("765.319.122-35");
         pacienteDTO.setNome("Testildo");
@@ -40,13 +42,13 @@ class PacienteIMPLServiceTest {
 
     //Deletando o paciente depois de cada teste
     @AfterEach
-    public void fim(){
+    public void fim() throws ResourceNotFoundException{
         service.deletar("765.319.122-35");
     }
 
     //Teste do método Salvar
     @Test
-    void salvar(){
+    void salvar() throws CadastroInvalidoException {
         //Criando um novo pacienteDTO para salvar no Banco
         PacienteDTO pacienteDTO = new PacienteDTO();
 
@@ -90,7 +92,7 @@ class PacienteIMPLServiceTest {
 
     //Teste do método buscarPorCpf
     @Test
-    void buscarPorCpf(){
+    void buscarPorCpf() throws ResourceNotFoundException{
         //Buscando o paciente criado para o teste e verificando se ele foi encontrado (Status code 200)
         Assertions.assertTrue(service.buscarPorCpf("765.319.122-35").getStatusCodeValue() == 200);
 
@@ -98,7 +100,7 @@ class PacienteIMPLServiceTest {
 
     //Testando o método deletar
     @Test
-    void deletar(){
+    void deletar() throws ResourceNotFoundException {
         //Deletando o paciente criado para o teste
         service.deletar("765.319.122-35");
         //Verificando se o paciente foi apagado

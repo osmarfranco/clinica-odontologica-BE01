@@ -9,6 +9,7 @@ import com.dh.grupo01.clinicaodontologica.repository.ConsultaRepository;
 import com.dh.grupo01.clinicaodontologica.repository.DentistaRepository;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class ConsultaIMPLService {
 
 
@@ -70,6 +72,7 @@ public class ConsultaIMPLService {
     public ResponseEntity deletar(String idConsulta){
         Optional<Consulta> consulta = repository.findByIdConsulta(idConsulta);
         if (consulta.isEmpty()){
+//            log.info();
             return new ResponseEntity("Id da Consulta não existe", HttpStatus.BAD_REQUEST);
         }
         repository.deleteById(consulta.get().getId());
