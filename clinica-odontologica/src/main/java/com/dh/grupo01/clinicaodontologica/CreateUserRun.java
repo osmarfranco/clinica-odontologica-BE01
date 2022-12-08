@@ -1,7 +1,6 @@
 package com.dh.grupo01.clinicaodontologica;
 
 import com.dh.grupo01.clinicaodontologica.entity.Usuario;
-import com.dh.grupo01.clinicaodontologica.entity.dto.UsuarioDTO;
 import com.dh.grupo01.clinicaodontologica.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
