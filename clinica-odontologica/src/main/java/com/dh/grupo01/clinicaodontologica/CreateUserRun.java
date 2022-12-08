@@ -1,6 +1,7 @@
 package com.dh.grupo01.clinicaodontologica;
 
 import com.dh.grupo01.clinicaodontologica.entity.Usuario;
+import com.dh.grupo01.clinicaodontologica.entity.dto.UsuarioDTO;
 import com.dh.grupo01.clinicaodontologica.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -20,7 +21,7 @@ public class CreateUserRun implements ApplicationRunner {
 
         Usuario usuario = new Usuario();
         usuario.setUsername("julian");
-        usuario.setPassword("123456");
+        usuario.setPassword(bCrypt.encode("123456"));
 
         repository.save(usuario);
     }
