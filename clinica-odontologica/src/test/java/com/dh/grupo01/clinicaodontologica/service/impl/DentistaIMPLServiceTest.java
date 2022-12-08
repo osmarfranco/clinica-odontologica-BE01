@@ -1,6 +1,7 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
+@Log4j2
 class DentistaIMPLServiceTest {
 
     // Injentando as dependências do service
@@ -18,6 +20,7 @@ class DentistaIMPLServiceTest {
     //Criando um dentista para testar nos outros métodos
     @BeforeEach
     public void inicio(){
+        log.info("Criando um dentista para testar nos outros métodos");
         DentistaDTO dentistaDTO = new DentistaDTO();
         dentistaDTO.setCro("12365");
         dentistaDTO.setNome("PrimeiroDoc");
@@ -34,6 +37,7 @@ class DentistaIMPLServiceTest {
     //Teste do método Salvar
     @Test
     void salvar(){
+        log.info("Criando um novo dentistaDTO para salvar no Banco");
         //Criando um novo dentistaDTO para salvar no Banco
         DentistaDTO dentistaDTO = new DentistaDTO();
         //Setando os atributos do novo dentista DTO
@@ -50,6 +54,7 @@ class DentistaIMPLServiceTest {
     //Testando o Buscar completo
     @Test
     void buscar(){
+        log.info("Buscando por todas as entradas e validando se dentro dos resultados o cro do dentista criado está presente");
         //Buscando por todas as entradas e validando se dentro dos resultados o cro do dentista criado está presente
         Assertions.assertTrue(service.buscar().stream().filter(dentistaDTO -> dentistaDTO.getCro().equals("12365")).findFirst().isPresent());
     }
@@ -57,6 +62,7 @@ class DentistaIMPLServiceTest {
     //Teste do método buscarPorCro
     @Test
     void buscarPorCro(){
+        log.info("Buscando o dentista criado para o teste e verificando se ele foi encontrado (Status code 200)");
         //Buscando o dentista criado para o teste e verificando se ele foi encontrado (Status code 200)
         Assertions.assertTrue(service.buscarPorCro("12365").getStatusCodeValue() == 200);
 
@@ -65,6 +71,7 @@ class DentistaIMPLServiceTest {
     //Testando o método deletar
     @Test
     void deletar(){
+        log.info("Deletando o dentista criado para o teste");
         //Deletando o dentista criado para o teste
         service.deletar("12365");
         //Verificando se o dentista foi apagado

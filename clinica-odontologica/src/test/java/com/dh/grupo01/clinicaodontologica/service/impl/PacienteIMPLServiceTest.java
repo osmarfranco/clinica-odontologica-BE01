@@ -4,6 +4,7 @@ import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
+@Log4j2
 class PacienteIMPLServiceTest {
 
     // Injentando as dependências do service
@@ -21,6 +23,7 @@ class PacienteIMPLServiceTest {
     //Criando um paciente e um endereço para testar nos outros métodos
     @BeforeEach
     public void inicio() throws CadastroInvalidoException{
+        log.info("Criando um paciente e um endereço para testar nos outros métodos");
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setCpf("765.319.122-35");
         pacienteDTO.setNome("Testildo");
@@ -43,6 +46,7 @@ class PacienteIMPLServiceTest {
     //Deletando o paciente depois de cada teste
     @AfterEach
     public void fim() throws ResourceNotFoundException{
+        log.info("Deletando o paciente depois de cada teste");
         service.deletar("765.319.122-35");
     }
 
@@ -50,6 +54,7 @@ class PacienteIMPLServiceTest {
     @Test
     void salvar() throws CadastroInvalidoException {
         //Criando um novo pacienteDTO para salvar no Banco
+        log.info("Criando um novo pacienteDTO para salvar no Banco");
         PacienteDTO pacienteDTO = new PacienteDTO();
 
         //Setando os atributos do novo pacienteDTO
@@ -80,6 +85,7 @@ class PacienteIMPLServiceTest {
     //Testando se o endereço do paciente foi salvo corretamente
     @Test
     void enderecoSalvoCorretamente(){
+        log.info("Testando se o endereço do paciente foi salvo corretamente");
         Assertions.assertTrue(service.buscar().stream().filter(pacienteDTO -> pacienteDTO.getEndereco().getCep().equals("67125-869")).findFirst().isPresent());
     }
 
@@ -87,6 +93,7 @@ class PacienteIMPLServiceTest {
     @Test
     void buscar(){
         //Buscando por todas as entradas e validando se dentro dos resultados o CPF do paciente criado está presente
+        log.info("Buscando por todas as entradas e validando se dentro dos resultados o CPF do paciente criado está presente");
         Assertions.assertTrue(service.buscar().stream().filter(pacienteDTO -> pacienteDTO.getCpf().equals("765.319.122-35")).findFirst().isPresent());
     }
 
@@ -94,6 +101,7 @@ class PacienteIMPLServiceTest {
     @Test
     void buscarPorCpf() throws ResourceNotFoundException{
         //Buscando o paciente criado para o teste e verificando se ele foi encontrado (Status code 200)
+        log.info("Buscando o paciente criado para o teste e verificando se ele foi encontrado (Status code 200)");
         Assertions.assertTrue(service.buscarPorCpf("765.319.122-35").getStatusCodeValue() == 200);
 
     }
@@ -102,6 +110,7 @@ class PacienteIMPLServiceTest {
     @Test
     void deletar() throws ResourceNotFoundException {
         //Deletando o paciente criado para o teste
+        log.info("Deletando o paciente criado para o teste");
         service.deletar("765.319.122-35");
         //Verificando se o paciente foi apagado
         Assertions.assertTrue(service.buscarPorCpf("765.319.122-35").getStatusCodeValue() != 200);
