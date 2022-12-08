@@ -6,6 +6,7 @@ import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Timestamp;
 
 @SpringBootTest
+@Log4j2
 class ConsultaIMPLServiceTest {
 
     // Injentando as dependências do service
@@ -31,6 +33,8 @@ class ConsultaIMPLServiceTest {
     public void inicio() throws CadastroInvalidoException {
         //Paciente
         PacienteDTO pacienteDTO = new PacienteDTO();
+        log.info("Criando um paciente, um dentista e uma consulta para testar o buscar e o deletar");
+
         pacienteDTO.setCpf("765.319.122-35");
         pacienteDTO.setNome("Testildo");
         pacienteDTO.setSobrenome("Silva");
@@ -66,7 +70,7 @@ class ConsultaIMPLServiceTest {
     //Teste do método Salvar
     @Test
     void salvar() throws CadastroInvalidoException{
-
+        log.info("Teste do método Salvar");
         //Criando e setando novos dados
         //Paciente
         PacienteDTO pacienteDTO = new PacienteDTO();
@@ -108,6 +112,7 @@ class ConsultaIMPLServiceTest {
     @Test
     void buscar(){
         //Buscando por todas as entradas e validando se dentro dos resultados o IdConsulta criado está presente
+        log.info("Buscando por todas as entradas e validando se dentro dos resultados o IdConsulta criado está presente");
         Assertions.assertTrue(serviceConsulta.buscar().stream().filter(consultaDTO -> consultaDTO.getIdConsulta().equals("2022-12-31 23:59:00.0765.319.122-3512365")).findFirst().isPresent());
     }
 
@@ -115,12 +120,14 @@ class ConsultaIMPLServiceTest {
     @Test
     void buscarPorId(){
         //Buscando a consulta criada para o teste e verificando se ela foi encontrada (Status code 200)
+        log.info("Buscando a consulta criada para o teste e verificando se ela foi encontrada (Status code 200)");
         Assertions.assertTrue(serviceConsulta.buscarPorId("2022-12-31 23:59:00.0765.319.122-3512365").getStatusCodeValue() == 200);
     }
 
     //Testando o método deletar
     @Test
     void deletar(){
+        log.info("Deletando a consulta criada para o teste");
         //Deletando a consulta criada para o teste
         serviceConsulta.deletar("2022-12-31 23:59:00.0765.319.122-3512365");
         //Verificando se a consulta foi apagada
