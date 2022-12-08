@@ -33,6 +33,7 @@ public class DentistaIMPLService {
             DentistaDTO dentistaDTO = mapper.convertValue(dentista, DentistaDTO.class);
             listDentistaDTO.add(dentistaDTO);
         }
+        log.info("Buscando todos dentista | public List<DentistaDTO> buscar |");
         return listDentistaDTO;
     }
     // Cria o método BuscarPorCRO para encontrar o CRO já que não passamos o ID do banco para o front.
@@ -41,23 +42,25 @@ public class DentistaIMPLService {
         ObjectMapper mapper = new ObjectMapper();
         Optional<Dentista> dentista = repository.findByCro(cro);
         if (dentista.isEmpty()){
+            log.info("Erro ao buscar dentista por cro | public ResponseEntity buscarPorCro |");
             return new ResponseEntity("Dentista não encontrado", HttpStatus.BAD_REQUEST);
         }
         Dentista dentista1 = dentista.get();
         DentistaDTO dentistaDTO = mapper.convertValue(dentista1, DentistaDTO.class);
+        log.info("Buscando dentista por cro | public ResponseEntity buscarPorCro |");
         return new ResponseEntity(dentistaDTO,HttpStatus.OK);
     }
 
     public ResponseEntity salvar(DentistaDTO dentistaDTO){
-
         ObjectMapper mapper = new ObjectMapper();
         Dentista dentista = mapper.convertValue(dentistaDTO, Dentista.class);
-
         try{
+            log.info("Salvando dentista | public ResponseEntity salvar |");
             Dentista dentistaSalvo = repository.save(dentista);
             return new ResponseEntity("Dentista " + dentista.getNome() + " criado com sucesso", HttpStatus.CREATED);
 
         }catch (Exception e){
+            log.info("Erro ao salvar dentista | public ResponseEntity salvar |");
             return new ResponseEntity("Erro ao cadastrar dentista", HttpStatus.BAD_REQUEST);
         }
 
@@ -68,9 +71,11 @@ public class DentistaIMPLService {
     public ResponseEntity deletar(String cro){
         Optional<Dentista> dentista = repository.findByCro(cro);
         if (dentista.isEmpty()){
+            log.info("Erro ao deletar dentista | public ResponseEntity deletar |");
             return new ResponseEntity("Id do Dentista não existe", HttpStatus.BAD_REQUEST);
         }
         repository.deleteById(dentista.get().getId());
+        log.info("Excluindo dentista | public ResponseEntity deletar |");
         return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
 
     }
@@ -83,12 +88,14 @@ public class DentistaIMPLService {
         Optional<Dentista> dentista1 = repository.findByCro(dentistaDTO.getCro());
 
         if (dentista1.isEmpty()){
+            log.info("Erro Atualizando total dentista | public ResponseEntity atualizarTotal |");
             return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
         }
         Dentista dentistaToUpdate = dentista1.get();
         dentistaToUpdate.setNome(dentistaDTO.getNome());
         dentistaToUpdate.setSobrenome(dentistaDTO.getSobrenome());
         repository.save(dentistaToUpdate);
+        log.info(" Atualizando total dentista | public ResponseEntity atualizarTotal |");
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
 
 
@@ -102,6 +109,7 @@ public class DentistaIMPLService {
         Optional<Dentista> dentista1 = repository.findByCro(dentistaDTO.getCro());
 
         if (dentista1.isEmpty()){
+            log.info("Erro Atualizando parcial dentista |  public ResponseEntity atualizarParcial |");
             return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
         }
         Dentista dentistaToUpdate = dentista1.get();
@@ -112,6 +120,7 @@ public class DentistaIMPLService {
             dentistaToUpdate.setSobrenome(dentistaDTO.getSobrenome());
         }
         repository.save(dentistaToUpdate);
+        log.info(" Atualizando total dentista |  public ResponseEntity atualizarParcial |");
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
     }
 

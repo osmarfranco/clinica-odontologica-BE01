@@ -2,6 +2,8 @@ package com.dh.grupo01.clinicaodontologica.controller;
 
 import com.dh.grupo01.clinicaodontologica.entity.Endereco;
 import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
+import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
+import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import com.dh.grupo01.clinicaodontologica.service.impl.EnderecoIMPLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +23,12 @@ public class EnderecoController {
         return service.buscar();
     }
     @PostMapping()
-    public ResponseEntity salvar(@RequestBody EnderecoDTO enderecoDTO){
+    public ResponseEntity salvar(@RequestBody EnderecoDTO enderecoDTO) throws CadastroInvalidoException {
 
         return service.salvar(enderecoDTO);
     }
     @DeleteMapping()
-    public ResponseEntity deletar(@RequestParam("id") Long id){
+    public ResponseEntity deletar(@RequestParam("id") Long id) throws ResourceNotFoundException {
         return service.deletar(id);
     }
 

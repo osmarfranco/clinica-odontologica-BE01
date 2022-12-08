@@ -3,6 +3,8 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
 import com.dh.grupo01.clinicaodontologica.entity.Endereco;
+import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
+import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import com.dh.grupo01.clinicaodontologica.repository.EnderecoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
@@ -31,29 +33,34 @@ public class EnderecoIMPLService {
             EnderecoDTO enderecoDTO = mapper.convertValue(endereco, EnderecoDTO.class);
             listEnderecoDTO.add(enderecoDTO);
         }
+        log.info("Buscando endereço |  public List<EnderecoDTO> buscar |");
         return listEnderecoDTO;
     }
 
-    public ResponseEntity salvar(EnderecoDTO enderecoDTO){
+    public ResponseEntity salvar(EnderecoDTO enderecoDTO) throws CadastroInvalidoException {
 
         ObjectMapper mapper = new ObjectMapper();
         Endereco endereco = mapper.convertValue(enderecoDTO, Endereco.class);
-
+        log.info("teste");
         try{
             Endereco enderecoSalvo = repository.save(endereco);
+            log.info("Salvando endereço  |  public ResponseEntity salvar |"+ enderecoSalvo.getLogradouro());
             return new ResponseEntity("Endereço " + enderecoSalvo.getLogradouro() + " criado com sucesso", HttpStatus.CREATED);
 
         }catch (Exception e){
-            return new ResponseEntity("Erro ao cadastrar endereço", HttpStatus.BAD_REQUEST);
+            log.info("Erro ao cadastrar endereço |  public ResponseEntity salvar |");
+            throw new CadastroInvalidoException("Erro ao cadastrar endereço");
         }
     }
 
-    public ResponseEntity deletar(Long id){
+    public ResponseEntity deletar(Long id)  throws ResourceNotFoundException{
         Optional<Endereco> endereco = repository.findById(id);
         if (endereco.isEmpty()){
-            return new ResponseEntity("Id do Endeço não existe", HttpStatus.BAD_REQUEST);
+            log.info("Erro ao deletar endereço | public ResponseEntity deletar |");
+            throw new ResourceNotFoundException("Id do Endeço não existe");
         }
         repository.deleteById(id);
+        log.info("Deletando endereço | public ResponseEntity deletar |");
         return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
 
     }

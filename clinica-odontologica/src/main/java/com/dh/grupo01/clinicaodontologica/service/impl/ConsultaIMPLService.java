@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +37,7 @@ public class ConsultaIMPLService {
             ConsultaDTO consultaDTO = mapper.convertValue(consulta, ConsultaDTO.class);
             listConsultaDTO.add(consultaDTO);
         }
+        log.info("Buscando todas as consultas | public List<ConsultaDTO> buscar | ");
         return listConsultaDTO;
     }
 
@@ -45,10 +45,12 @@ public class ConsultaIMPLService {
         ObjectMapper mapper = new ObjectMapper();
         Optional<Consulta> consulta = repository.findByIdConsulta(idConsulta);
         if (consulta.isEmpty()){
+            log.info("Erro ao buscar Consulta por Id| public ResponseEntity buscarPorId | ");
             return new ResponseEntity("Consulta não encontrada", HttpStatus.BAD_REQUEST);
         }
         Consulta consulta1 = consulta.get();
         ConsultaDTO consultaDTO = mapper.convertValue(consulta1, ConsultaDTO.class);
+        log.info("Buscando consulta por id | public ResponseEntity buscarPorId | ");
         return new ResponseEntity(consultaDTO,HttpStatus.OK);
     }
 
@@ -62,9 +64,11 @@ public class ConsultaIMPLService {
         consulta.setIdConsulta(consulta.getDataHoraConsulta().toString() + consulta.getPaciente().getCpf() + consulta.getDentista().getCro());
         try{
             repository.save(consulta);
+            log.info("Salvando Consulta |  public ResponseEntity salvar| ");
             return new ResponseEntity("Consulta agendada com sucesso", HttpStatus.CREATED);
 
         }catch (Exception e){
+            log.info("Erro ao Salvar Consulta |  public ResponseEntity salvar| ");
             return new ResponseEntity("Erro ao agendar consulta", HttpStatus.BAD_REQUEST);
         }
     }
@@ -72,10 +76,11 @@ public class ConsultaIMPLService {
     public ResponseEntity deletar(String idConsulta){
         Optional<Consulta> consulta = repository.findByIdConsulta(idConsulta);
         if (consulta.isEmpty()){
-//            log.info();
+            log.info("Erro deletando consulta | public ResponseEntity deletar |");
             return new ResponseEntity("Id da Consulta não existe", HttpStatus.BAD_REQUEST);
         }
         repository.deleteById(consulta.get().getId());
+        log.info("Deletando consulta | public ResponseEntity deletar |");
         return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
 
     }
