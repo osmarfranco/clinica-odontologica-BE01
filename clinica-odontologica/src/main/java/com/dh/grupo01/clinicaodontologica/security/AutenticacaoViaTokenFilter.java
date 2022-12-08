@@ -26,7 +26,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
     private String recuperarToken(HttpServletRequest request) {
         String getToken = request.getHeader("Authorization");
-        if(getToken == null || getToken.isEmpty() || getToken.startsWith("Bearer ")){
+        if(getToken == null || getToken.isEmpty() || !getToken.startsWith("Bearer ")){
             return null;
         }
         return getToken.substring(7, getToken.length());

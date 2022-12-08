@@ -40,12 +40,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // NÃO ESTÁ TERMINADO POIS APRENDEREMOS O PERMISSIONAMENTO NA QUINTA
                 //
                 //Permissões de acesso para paciente
-                .antMatchers(HttpMethod.GET, "/paciente").permitAll()
-                .antMatchers(HttpMethod.GET, "/paciente/buscarCpf/{cpf}").permitAll() // se der erro, tirar o /paciente da frente
-                .antMatchers(HttpMethod.POST, "/paciente").permitAll()
-                .antMatchers(HttpMethod.PUT, "/paciente").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/paciente").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/paciente").permitAll()
+                //.antMatchers(HttpMethod.GET, "/paciente").permitAll()
+                //.antMatchers(HttpMethod.GET, "/paciente/buscarCpf/{cpf}").permitAll() // se der erro, tirar o /paciente da frente
+                //.antMatchers(HttpMethod.POST, "/paciente").permitAll()
+                //.antMatchers(HttpMethod.PUT, "/paciente").permitAll()
+                //.antMatchers(HttpMethod.PATCH, "/paciente").permitAll()
+                //.antMatchers(HttpMethod.DELETE, "/paciente").permitAll()
                 //Permissões de acesso para dentista
                 .antMatchers(HttpMethod.GET, "/dentista").permitAll()
                 .antMatchers(HttpMethod.GET, "/dentista/buscarCro/{cro}").permitAll() //se der erro, tirar o /dentista da frente
@@ -59,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/consulta").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/consulta").permitAll()
                 //Bloqueando acesso a qualquer outra rota que não tenha sido mapeada aqui
-                .anyRequest().authenticated()
+                .anyRequest().authenticated().and().cors()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(autenticacaoViaTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
