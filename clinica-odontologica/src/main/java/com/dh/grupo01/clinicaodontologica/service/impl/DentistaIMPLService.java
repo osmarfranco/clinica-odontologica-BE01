@@ -30,8 +30,10 @@ public class DentistaIMPLService {
         List<DentistaDTO> listDentistaDTO = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         for (Dentista dentista : listDentista) {
-            DentistaDTO dentistaDTO = mapper.convertValue(dentista, DentistaDTO.class);
-            listDentistaDTO.add(dentistaDTO);
+            if(dentista.getDeletado() == 0) {
+                DentistaDTO dentistaDTO = mapper.convertValue(dentista, DentistaDTO.class);
+                listDentistaDTO.add(dentistaDTO);
+            }
         }
         log.info("Buscando todos dentista | public List<DentistaDTO> buscar |");
         return listDentistaDTO;
@@ -41,14 +43,16 @@ public class DentistaIMPLService {
     public ResponseEntity buscarPorCro(String cro) {
         ObjectMapper mapper = new ObjectMapper();
         Optional<Dentista> dentista = repository.findByCro(cro);
-        if (dentista.isEmpty()){
+        Dentista dentista1 = dentista.get();
+        if (dentista.isEmpty() || dentista1.getDeletado() != 0) {
             log.info("Erro ao buscar dentista por cro | public ResponseEntity buscarPorCro |");
             return new ResponseEntity("Dentista não encontrado", HttpStatus.BAD_REQUEST);
         }
-        Dentista dentista1 = dentista.get();
-        DentistaDTO dentistaDTO = mapper.convertValue(dentista1, DentistaDTO.class);
-        log.info("Buscando dentista por cro | public ResponseEntity buscarPorCro |");
-        return new ResponseEntity(dentistaDTO,HttpStatus.OK);
+            DentistaDTO dentistaDTO = mapper.convertValue(dentista1, DentistaDTO.class);
+            log.info("Buscando dentista por cro | public ResponseEntity buscarPorCro |");
+            return new ResponseEntity(dentistaDTO, HttpStatus.OK);
+
+
     }
 
     public ResponseEntity salvar(DentistaDTO dentistaDTO){
@@ -68,17 +72,29 @@ public class DentistaIMPLService {
 
     // Cria o método deletar usando o FindById, procura o id correspondente no repository e usa o optional para
     // caso não exista o ID informado ele trazer vazio.
-    public ResponseEntity deletar(String cro){
-        Optional<Dentista> dentista = repository.findByCro(cro);
-        if (dentista.isEmpty()){
-            log.info("Erro ao deletar dentista | public ResponseEntity deletar |");
-            return new ResponseEntity("Id do Dentista não existe", HttpStatus.BAD_REQUEST);
+    public ResponseEntity deletar(DentistaDTO dentistaDTO){
+        Optional<Dentista> dentista1 = repository.findByCro(dentistaDTO.getCro());
+        if (dentista1.isEmpty()){
+            log.info("deletando |   public ResponseEntity deleta |");
+            return new ResponseEntity("deletando Dentista não existe", HttpStatus.BAD_REQUEST);
+        }        Dentista dentistaToUpdate = dentista1.get();
+        if(dentistaDTO.getDeletado() != 0) {
+            dentistaToUpdate.setDeletado(dentistaDTO.getDeletado());
         }
-        repository.deleteById(dentista.get().getId());
-        log.info("Excluindo dentista | public ResponseEntity deletar |");
-        return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
-
+        repository.save(dentistaToUpdate);
+        log.info(" deletando |   public ResponseEntity deleta |" + dentistaDTO.getDeletado());
+        return new ResponseEntity("deletando com sucesso", HttpStatus.OK);
     }
+
+//        Optional<Dentista> dentista = repository.findByCro(cro);
+//        if (dentista.isEmpty()){
+//            log.info("Erro ao deletar dentista | public ResponseEntity deletar |");
+//            return new ResponseEntity("Id do Dentista não existe", HttpStatus.BAD_REQUEST);
+//        }
+//        repository.deleteById(dentista.get().getId());
+//        log.info("Excluindo dentista | public ResponseEntity deletar |");
+//        return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
+
 
 
 // PRECISA CRIAR UM NOVO FindBy para pegar os dados e alterar sem realizar o mapper como no buscar por ID.

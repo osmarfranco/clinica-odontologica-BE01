@@ -34,9 +34,9 @@ public class DentistaController {
         return service.salvar(dentistaDTO);
     }
 
-    @DeleteMapping()
-    public ResponseEntity deletar(@RequestParam("cro") String cro){
-        return service.deletar(cro);
+    @PatchMapping("/deletar")
+    public ResponseEntity deletar(@RequestBody DentistaDTO dentistaDTO){
+        return service.deletar(dentistaDTO);
     }
 
     @PutMapping()

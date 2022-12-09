@@ -30,4 +30,6 @@ public class Paciente {
     @OneToOne (cascade = CascadeType.ALL)
     private Endereco endereco;
 
+    private Integer deletado;
+
 }

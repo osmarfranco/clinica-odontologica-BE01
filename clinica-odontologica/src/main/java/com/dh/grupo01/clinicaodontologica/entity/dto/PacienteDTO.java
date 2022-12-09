@@ -30,4 +30,5 @@ public class PacienteDTO {
     //Endereço não precisa de @NotBlank pois é chave estrangeira, ao menos é oq achamos...
     private EnderecoDTO endereco;
 
+    private Integer deletado;
 }
