@@ -36,28 +36,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //Permitindo autenticação para todos
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                //
-                // NÃO ESTÁ TERMINADO POIS APRENDEREMOS O PERMISSIONAMENTO NA QUINTA
-                //
                 //Permissões de acesso para paciente
-                //.antMatchers(HttpMethod.GET, "/paciente").permitAll()
-                //.antMatchers(HttpMethod.GET, "/paciente/buscarCpf/{cpf}").permitAll() // se der erro, tirar o /paciente da frente
-                //.antMatchers(HttpMethod.POST, "/paciente").permitAll()
-                //.antMatchers(HttpMethod.PUT, "/paciente").permitAll()
-                //.antMatchers(HttpMethod.PATCH, "/paciente").permitAll()
-                //.antMatchers(HttpMethod.DELETE, "/paciente").permitAll()
+                .antMatchers(HttpMethod.GET, "/paciente").hasAnyAuthority("ADMIN", "ATENDENTE", "DENTISTA")
+                .antMatchers(HttpMethod.GET, "/paciente/buscarCpf/{cpf}").hasAnyAuthority("ADMIN", "ATENDENTE") // se der erro, tirar o /paciente da frente
+                .antMatchers(HttpMethod.POST, "/paciente").hasAnyAuthority("ADMIN", "ATENDENTE", "PACIENTE")
+                .antMatchers(HttpMethod.PUT, "/paciente").hasAnyAuthority("ADMIN", "ATENDENTE", "PACIENTE")
+                .antMatchers(HttpMethod.PATCH, "/paciente").hasAnyAuthority("ADMIN", "ATENDENTE", "PACIENTE")
+                .antMatchers(HttpMethod.DELETE, "/paciente").hasAuthority("ADMIN")
                 //Permissões de acesso para dentista
-                .antMatchers(HttpMethod.GET, "/dentista").permitAll()
-                .antMatchers(HttpMethod.GET, "/dentista/buscarCro/{cro}").permitAll() //se der erro, tirar o /dentista da frente
-                .antMatchers(HttpMethod.POST, "/dentista").permitAll()
-                .antMatchers(HttpMethod.PUT, "/dentista").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/dentista").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/dentista").permitAll()
+                .antMatchers(HttpMethod.GET, "/dentista").hasAnyAuthority("ADMIN", "ATENDENTE", "PACIENTE")
+                .antMatchers(HttpMethod.GET, "/dentista/buscarCro/{cro}").hasAnyAuthority("ADMIN", "ATENDENTE", "PACIENTE") //se der erro, tirar o /dentista da frente
+                .antMatchers(HttpMethod.POST, "/dentista").hasAnyAuthority("ADMIN", "ATENDENTE", "DENTISTA")
+                .antMatchers(HttpMethod.PUT, "/dentista").hasAnyAuthority("ADMIN", "ATENDENTE", "DENTISTA")
+                .antMatchers(HttpMethod.PATCH, "/dentista").hasAnyAuthority("ADMIN", "ATENDENTE", "DENTISTA")
+                .antMatchers(HttpMethod.DELETE, "/dentista").hasAuthority("ADMIN")
                 //Permissões de acesso para consultas
-                .antMatchers(HttpMethod.GET, "/consulta").permitAll()
-                .antMatchers(HttpMethod.GET, "/consulta/buscarIdConsulta/{idConsulta}").permitAll() // se der erro tirar o /consulta da frente
-                .antMatchers(HttpMethod.POST, "/consulta").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/consulta").permitAll()
+                .antMatchers(HttpMethod.GET, "/consulta").hasAnyAuthority("ADMIN", "ATENDENTE", "PACIENTE")
+                .antMatchers(HttpMethod.GET, "/consulta/buscarIdConsulta/{idConsulta}").hasAnyAuthority("ADMIN", "ATENDENTE", "PACIENTE") // se der erro tirar o /consulta da frente
+                .antMatchers(HttpMethod.POST, "/consulta").hasAnyAuthority("ADMIN", "ATENDENTE", "PACIENTE")
+                .antMatchers(HttpMethod.DELETE, "/consulta").hasAnyAuthority("ADMIN", "ATENDENTE")
+                //Permissões de acesso para usuários
+                .antMatchers(HttpMethod.GET, "/usuario").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/usuario").hasAnyAuthority("ADMIN", "ATENDENTE", "DENTISTA", "PACIENTE")
+                .antMatchers(HttpMethod.PATCH, "/usuario").hasAnyAuthority("ADMIN", "ATENDENTE", "DENTISTA", "PACIENTE")
+                .antMatchers(HttpMethod.DELETE, "/usuario").hasAuthority("ADMIN")
+                //Permissões de acesso para perfis
+                .antMatchers(HttpMethod.GET, "/perfil").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/perfil").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/perfil").hasAuthority("ADMIN")
                 //Bloqueando acesso a qualquer outra rota que não tenha sido mapeada aqui
                 .anyRequest().authenticated().and().cors()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

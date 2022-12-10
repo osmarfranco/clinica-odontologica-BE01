@@ -1,5 +1,6 @@
 package com.dh.grupo01.clinicaodontologica.entity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,10 @@ public class UsuarioDTO {
     @NotBlank
     @Size(min = 6)
     private String password;
+
+    @NotBlank
+    @JsonIgnore //colocado para não dar conflito com a entidade na hora de usar o mapper no service
+    private String perfil;
 
     public UsernamePasswordAuthenticationToken converter(){
         return new UsernamePasswordAuthenticationToken(this.username, this.password);
