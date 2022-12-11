@@ -1,12 +1,13 @@
 package com.dh.grupo01.clinicaodontologica.entity;
 
-import java.sql.Timestamp;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -17,19 +18,20 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @CPF
     @Column(nullable = false, unique = true)
     private String cpf;
 
     private Timestamp dataCadastro;
-
+    @NotBlank
     private String nome;
-
+    @NotBlank
     private String sobrenome;
 
     @OneToOne (cascade = CascadeType.ALL)
     private Endereco endereco;
 
+    //João aqui não seria int ao invés de Integer?
     private Integer deletado;
 
 }

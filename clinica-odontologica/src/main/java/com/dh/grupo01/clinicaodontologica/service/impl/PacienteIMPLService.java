@@ -1,13 +1,12 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
 
-import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
+import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +48,7 @@ public class PacienteIMPLService {
         Paciente paciente1 = paciente.get();
         PacienteDTO pacienteDTO = mapper.convertValue(paciente1, PacienteDTO.class);
         log.info("Buscando Paciente |  public List<PacienteDTO> buscar()|" + paciente.get());
-        return new ResponseEntity(pacienteDTO,HttpStatus.OK);
+        return new ResponseEntity(pacienteDTO, HttpStatus.OK);
     }
 
     public ResponseEntity salvar(PacienteDTO pacienteDTO) throws CadastroInvalidoException {

@@ -1,6 +1,7 @@
 package com.dh.grupo01.clinicaodontologica.entity;
 
 import lombok.*;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,6 +17,7 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String idConsulta;
 

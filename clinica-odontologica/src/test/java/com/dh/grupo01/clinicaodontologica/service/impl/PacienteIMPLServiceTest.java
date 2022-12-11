@@ -46,6 +46,7 @@ class PacienteIMPLServiceTest {
     //Deletando o paciente depois de cada teste
     @AfterEach
     public void fim() throws ResourceNotFoundException{
+        if (service.buscarPorCpf("765.319.122-35").hasBody())
         log.info("Deletando o paciente depois de cada teste");
         service.deletar("765.319.122-35");
     }
