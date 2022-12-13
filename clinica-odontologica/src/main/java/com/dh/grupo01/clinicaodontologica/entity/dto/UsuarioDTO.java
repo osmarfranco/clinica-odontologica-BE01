@@ -26,10 +26,10 @@ public class UsuarioDTO {
     @Size(min = 6)
     private String password;
 
-<<<<<<< Updated upstream
-//    @NotBlank
-=======
->>>>>>> Stashed changes
+//<<<<<<< Updated upstream
+////    @NotBlank
+//=======
+//>>>>>>> Stashed changes
     @JsonIgnore //colocado para não dar conflito com a entidade na hora de usar o mapper no service
     private String perfil;
 

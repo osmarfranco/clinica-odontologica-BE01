@@ -60,6 +60,7 @@ public class DentistaIMPLService {
         Dentista dentista = mapper.convertValue(dentistaDTO, Dentista.class);
         try{
             log.info("Salvando dentista | public ResponseEntity salvar |");
+            dentista.setDeletado(0);
             Dentista dentistaSalvo = repository.save(dentista);
             return new ResponseEntity("Dentista " + dentista.getNome() + " criado com sucesso", HttpStatus.CREATED);
 

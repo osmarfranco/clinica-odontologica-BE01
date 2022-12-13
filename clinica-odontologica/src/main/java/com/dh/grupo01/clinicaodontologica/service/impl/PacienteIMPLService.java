@@ -59,6 +59,7 @@ public class PacienteIMPLService {
         Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
         try{
             paciente.setDataCadastro(Timestamp.from(Instant.now()));
+            paciente.setDeletado(0);
             Paciente pacienteSalvo = repository.save(paciente);
             log.info("Salvando Paciente |  public ResponseEntity salvar()|" + pacienteSalvo.getNome());
             return new ResponseEntity("Paciente " + pacienteSalvo.getNome() + " criado com sucesso", HttpStatus.CREATED);

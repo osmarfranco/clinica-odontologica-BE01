@@ -52,6 +52,7 @@ public class CreateUserRun implements ApplicationRunner {
         paciente.setNome("Lucas");
         paciente.setSobrenome("Teste");
         paciente.setCpf("358.023.642-38");
+
         EnderecoDTO enderecoDTO1 = new EnderecoDTO();
         enderecoDTO1.setLogradouro("Rua dos testes");
         enderecoDTO1.setNumero(123);
@@ -60,7 +61,9 @@ public class CreateUserRun implements ApplicationRunner {
         enderecoDTO1.setCidade("Testópolis");
         enderecoDTO1.setEstado("São Teste");
         enderecoDTO1.setCep("67125-869");
+
         paciente.setEndereco(enderecoDTO1);
+        paciente.setDeletado(0);
 
 
         PacienteDTO paciente2 = new PacienteDTO();
@@ -78,6 +81,7 @@ public class CreateUserRun implements ApplicationRunner {
         endereco2.setCep("67125-869");
 
         paciente2.setEndereco(endereco2);
+        paciente2.setDeletado(0);
 
         pacienteService.salvar(paciente);
         pacienteService.salvar(paciente2);
