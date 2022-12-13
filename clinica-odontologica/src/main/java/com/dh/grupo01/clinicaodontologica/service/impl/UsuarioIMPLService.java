@@ -44,6 +44,7 @@ public class UsuarioIMPLService {
     public ResponseEntity salvar(UsuarioDTO usuarioDTO) throws CadastroInvalidoException {
         ObjectMapper mapper = new ObjectMapper();
         Usuario usuario = mapper.convertValue(usuarioDTO, Usuario.class);
+
         try{
             //Encriptando a senha do usuário antes de salvá-la no banco
             BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();

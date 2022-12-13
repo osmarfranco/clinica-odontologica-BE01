@@ -4,6 +4,7 @@ import lombok.*;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.sql.Timestamp;
 
 @Getter
@@ -21,6 +22,7 @@ public class Consulta {
     @Column(nullable = false, unique = true)
     private String idConsulta;
 
+    @Future
     @Column(nullable = false)
     private Timestamp dataHoraConsulta;
 

@@ -5,6 +5,7 @@ import com.dh.grupo01.clinicaodontologica.entity.Consulta;
 import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.ConsultaDTO;
+import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.repository.ConsultaRepository;
 import com.dh.grupo01.clinicaodontologica.repository.DentistaRepository;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,11 +56,28 @@ public class ConsultaIMPLService {
         return new ResponseEntity(consultaDTO,HttpStatus.OK);
     }
 
-    public ResponseEntity salvar(ConsultaDTO consultaDTO){
+    public ResponseEntity salvar(ConsultaDTO consultaDTO) throws CadastroInvalidoException{
         ObjectMapper mapper = new ObjectMapper();
         Consulta consulta = mapper.convertValue(consultaDTO, Consulta.class);
         Optional<Dentista> dentistaId = repositoryDent.findByCro(consultaDTO.getDentista().getCro());
         Optional<Paciente> pacienteId = repositoryPac.findByCpf(consultaDTO.getPaciente().getCpf());
+        List<Consulta> listaConsultas = repository.findByDataHoraConsulta(consulta.getDataHoraConsulta());
+
+        log.info("Validando disponibilidade de horário do dentista e paciente | public ResponseEntity salvar | ");
+        //Verifica se o paciente ou o dentista já tem consulta marcada no mesmo horário
+        for (Consulta c: listaConsultas) {
+            // Verifica se o dentista já tem alguma consulta marcada nessa hora
+            if (c.getDentista().getCro().equals(consulta.getDentista().getCro()) && c.getDataHoraConsulta().equals(consulta.getDataHoraConsulta())){
+                throw  new CadastroInvalidoException("Dentista já tem consulta nessa hora");
+            }
+            // Verifica se o paciente já tem alguma consulta marcada nessa hora
+            if (c.getPaciente().getCpf().equals(consulta.getPaciente().getCpf())   && c.getDataHoraConsulta().equals(consulta.getDataHoraConsulta())){
+                throw  new CadastroInvalidoException("Paciente já tem consulta nessa hora");
+            }
+
+        }
+        log.info("Validando disponibilidade de horário do dentista e paciente | public ResponseEntity salvar | Validado com sucesso ");
+        
         consulta.getDentista().setId(dentistaId.get().getId());
         consulta.getPaciente().setId(pacienteId.get().getId());
         consulta.setIdConsulta(consulta.getDataHoraConsulta().toString() + consulta.getPaciente().getCpf() + consulta.getDentista().getCro());
@@ -85,24 +104,5 @@ public class ConsultaIMPLService {
 
     }
 
-//    public ResponseEntity atualizarTotal(ConsultaDTO consultaDTO) {
-//
-//        Optional<Consulta> consulta = repository.findByIdConsulta(consultaDTO.getIdConsulta());
-//
-//        if (consulta.isEmpty()){
-//            return new ResponseEntity("CRO do Dentista não existe", HttpStatus.BAD_REQUEST);
-//        }
-//        Consulta consultaToUpdate = consulta.get();
-//        consultaToUpdate.setDataHoraConsulta(consultaDTO.getDataHoraConsulta());
-//        repository.save(consultaToUpdate);
-//        return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
-//
-//
-//
-//    }
-
-//    public Consulta atualizarParcial(Consulta consulta){
-//        return service.atualizarParcial(consulta);
-//    }
 
 }

@@ -1,8 +1,8 @@
 package com.dh.grupo01.clinicaodontologica.controller;
 
 
-import com.dh.grupo01.clinicaodontologica.entity.Consulta;
 import com.dh.grupo01.clinicaodontologica.entity.dto.ConsultaDTO;
+import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.service.impl.ConsultaIMPLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class ConsultaController {
     }
 
     @PostMapping()
-    public ResponseEntity salvar(@RequestBody ConsultaDTO consultaDTO){
+    public ResponseEntity salvar(@RequestBody ConsultaDTO consultaDTO) throws CadastroInvalidoException {
 
         return service.salvar(consultaDTO);
     }
