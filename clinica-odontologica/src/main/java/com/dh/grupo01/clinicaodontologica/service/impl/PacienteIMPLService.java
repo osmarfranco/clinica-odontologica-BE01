@@ -2,10 +2,12 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
+import com.dh.grupo01.clinicaodontologica.entity.Perfil;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import com.dh.grupo01.clinicaodontologica.repository.PacienteRepository;
+import com.dh.grupo01.clinicaodontologica.repository.PerfilRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ import java.util.Optional;
 public class PacienteIMPLService {
     @Autowired
     PacienteRepository repository;
+
+    @Autowired
+    PerfilRepository perfilRepository;
 
     public List<PacienteDTO> buscar(){
         List<Paciente> listPaciente = repository.findAll();
@@ -59,7 +64,14 @@ public class PacienteIMPLService {
         Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
         try{
             paciente.setDataCadastro(Timestamp.from(Instant.now()));
+            //Colocando por padrão como usuário ativo
             paciente.setDeletado(0);
+            //Encriptando a senha antes de salvar no banco
+            paciente.getUsuario().encriptarSenha();
+            //Convertendo a descrição da permissão passada pelo DTO em um perfil
+            List<Perfil> perfil = new ArrayList<>();
+            perfil.add(perfilRepository.findByDescricao(pacienteDTO.getUsuario().getPerfil()).get());
+            paciente.getUsuario().setPerfis(perfil);
             Paciente pacienteSalvo = repository.save(paciente);
             log.info("Salvando Paciente |  public ResponseEntity salvar()|" + pacienteSalvo.getNome());
             return new ResponseEntity("Paciente " + pacienteSalvo.getNome() + " criado com sucesso", HttpStatus.CREATED);

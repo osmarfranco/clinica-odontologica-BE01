@@ -31,6 +31,9 @@ public class Paciente {
     @OneToOne (cascade = CascadeType.ALL)
     private Endereco endereco;
 
+    @OneToOne (cascade = CascadeType.ALL)
+    private Usuario usuario;
+
     //João aqui não seria int ao invés de Integer?
     private Integer deletado;
 

@@ -1,13 +1,17 @@
 package com.dh.grupo01.clinicaodontologica.entity;
 
+import com.dh.grupo01.clinicaodontologica.repository.PerfilRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,6 +35,11 @@ public class Usuario implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis;
 
+    public void encriptarSenha() {
+        //Encriptando a senha do usuário antes de salvá-la no banco
+        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
+        this.setPassword(bCrypt.encode(this.getPassword()));
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

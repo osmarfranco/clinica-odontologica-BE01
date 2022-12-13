@@ -39,10 +39,24 @@ public class CreateUserRun implements ApplicationRunner {
         dentista1.setSobrenome("Haddad");
         dentista1.setCro("456987");
 
+        UsuarioDTO usuario2 = new UsuarioDTO();
+        usuario2.setUsername("mustafa");
+        usuario2.setPassword("123456");
+        usuario2.setPerfil("DENTISTA");
+
+        dentista1.setUsuario(usuario2);
+
         DentistaDTO dentista2 = new DentistaDTO();
         dentista2.setNome("Kalil");
         dentista2.setSobrenome("Kabelo");
         dentista2.setCro("56984");
+
+        UsuarioDTO usuario3 = new UsuarioDTO();
+        usuario3.setUsername("kalil");
+        usuario3.setPassword("123456");
+        usuario3.setPerfil("DENTISTA");
+
+        dentista2.setUsuario(usuario3);
 
         dentistaService.salvar(dentista1);
         dentistaService.salvar(dentista2);
@@ -63,8 +77,13 @@ public class CreateUserRun implements ApplicationRunner {
         enderecoDTO1.setCep("67125-869");
 
         paciente.setEndereco(enderecoDTO1);
-        paciente.setDeletado(0);
 
+        UsuarioDTO usuario4 = new UsuarioDTO();
+        usuario4.setUsername("lucas");
+        usuario4.setPassword("123456");
+        usuario4.setPerfil("PACIENTE");
+
+        paciente.setUsuario(usuario4);
 
         PacienteDTO paciente2 = new PacienteDTO();
         paciente2.setCpf("765.319.122-35");
@@ -81,7 +100,13 @@ public class CreateUserRun implements ApplicationRunner {
         endereco2.setCep("67125-869");
 
         paciente2.setEndereco(endereco2);
-        paciente2.setDeletado(0);
+
+        UsuarioDTO usuario5 = new UsuarioDTO();
+        usuario5.setUsername("testildo");
+        usuario5.setPassword("123456");
+        usuario5.setPerfil("PACIENTE");
+
+        paciente2.setUsuario(usuario5);
 
         pacienteService.salvar(paciente);
         pacienteService.salvar(paciente2);

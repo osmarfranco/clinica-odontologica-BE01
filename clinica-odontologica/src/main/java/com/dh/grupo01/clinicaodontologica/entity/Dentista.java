@@ -27,5 +27,8 @@ public class Dentista {
     @NotBlank
     private String sobrenome;
 
+    @OneToOne (cascade = CascadeType.ALL)
+    private Usuario usuario;
+
     private Integer deletado;
 }

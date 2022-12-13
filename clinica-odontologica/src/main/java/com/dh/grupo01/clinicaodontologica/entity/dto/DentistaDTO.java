@@ -22,6 +22,10 @@ public class DentistaDTO {
     private String nome;
     @NotBlank
     private String sobrenome;
+
+    @NotBlank
+    private UsuarioDTO usuario;
+
     @NotBlank
     private Integer deletado;
 }
