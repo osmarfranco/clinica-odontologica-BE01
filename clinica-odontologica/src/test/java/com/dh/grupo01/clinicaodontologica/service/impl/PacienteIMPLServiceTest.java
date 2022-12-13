@@ -5,7 +5,6 @@ import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,12 +43,12 @@ class PacienteIMPLServiceTest {
     }
 
     //Deletando o paciente depois de cada teste
-    @AfterEach
-    public void fim() throws ResourceNotFoundException{
-        if (service.buscarPorCpf("765.319.122-35").hasBody())
-        log.info("Deletando o paciente depois de cada teste");
-        service.deletar("765.319.122-35");
-    }
+//    @AfterEach
+//    public void fim() throws ResourceNotFoundException{
+//        if (service.buscarPorCpf("765.319.122-35").hasBody())
+//        log.info("Deletando o paciente depois de cada teste");
+//        service.deletar("765.319.122-35");
+//    }
 
     //Teste do método Salvar
     @Test
