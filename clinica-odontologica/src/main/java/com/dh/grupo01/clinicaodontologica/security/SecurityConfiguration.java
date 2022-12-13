@@ -36,6 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //Permitindo autenticação para todos
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .antMatchers(HttpMethod.GET, "/v3/api-docs/**","/swagger-ui/**").permitAll()
                 //Permissões de acesso para paciente
                 .antMatchers(HttpMethod.GET, "/paciente").hasAnyAuthority("ADMIN", "ATENDENTE", "DENTISTA")
                 .antMatchers(HttpMethod.GET, "/paciente/buscarCpf/{cpf}").hasAnyAuthority("ADMIN", "ATENDENTE") // se der erro, tirar o /paciente da frente
