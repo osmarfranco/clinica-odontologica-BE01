@@ -1,8 +1,6 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
 
-
-import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
@@ -77,11 +75,11 @@ public class PacienteIMPLService {
             return new ResponseEntity("deletando Paciente não existe", HttpStatus.BAD_REQUEST);
         }        Paciente pacienteToUpdate = paciente1.get();
         if(pacienteDTO.getDeletado() != 0) {
-            log.info(" testesteste |   public ResponseEntity deleta |" + pacienteDTO.getDeletado());
             pacienteToUpdate.setDeletado(pacienteDTO.getDeletado());
+            log.info(" deletando |   public ResponseEntity deleta |" + pacienteDTO.getDeletado());
         }
         repository.save(pacienteToUpdate);
-        log.info(" deletando |   public ResponseEntity deleta |" + pacienteDTO.getDeletado());
+
         return new ResponseEntity("deletando com sucesso", HttpStatus.OK);
     }
 
