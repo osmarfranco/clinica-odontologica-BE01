@@ -1,6 +1,7 @@
 package com.dh.grupo01.clinicaodontologica.controller;
 
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
+import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
@@ -34,9 +35,9 @@ public class PacienteController {
         return service.salvar(pacienteDTO);
     }
 
-    @DeleteMapping()
-    public ResponseEntity deletar (@RequestParam("cpf") String cpf) throws ResourceNotFoundException{
-        return service.deletar(cpf);
+    @PatchMapping("/deletar")
+    public ResponseEntity deletar(@RequestBody PacienteDTO pacienteDTO){
+        return service.deletar(pacienteDTO);
     }
 
     @PutMapping()

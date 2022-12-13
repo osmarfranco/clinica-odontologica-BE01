@@ -108,13 +108,13 @@ class PacienteIMPLServiceTest {
     }
 
     //Testando o método deletar
-    @Test
-    void deletar() throws ResourceNotFoundException {
-        //Deletando o paciente criado para o teste
-        log.info("Deletando o paciente criado para o teste");
-        service.deletar("765.319.122-35");
-        //Verificando se o paciente foi apagado
-        Assertions.assertTrue(service.buscarPorCpf("765.319.122-35").getStatusCodeValue() != 200);
-    }
+//    @Test
+//    void deletar() throws ResourceNotFoundException {
+//        //Deletando o paciente criado para o teste
+//        log.info("Deletando o paciente criado para o teste");
+//        service.deletar("765.319.122-35");
+//        //Verificando se o paciente foi apagado
+//        Assertions.assertTrue(service.buscarPorCpf("765.319.122-35").getStatusCodeValue() != 200);
+//    }
 
 }

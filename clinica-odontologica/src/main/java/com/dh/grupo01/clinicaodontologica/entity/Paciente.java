@@ -1,8 +1,6 @@
 package com.dh.grupo01.clinicaodontologica.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -13,6 +11,8 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

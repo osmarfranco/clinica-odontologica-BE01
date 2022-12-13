@@ -1,6 +1,8 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
 
+
+import com.dh.grupo01.clinicaodontologica.entity.Dentista;
 import com.dh.grupo01.clinicaodontologica.entity.Paciente;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
@@ -30,8 +32,10 @@ public class PacienteIMPLService {
         List<PacienteDTO> listPacienteDTO = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         for (Paciente paciente : listPaciente) {
-            PacienteDTO pacienteDTO = mapper.convertValue(paciente, PacienteDTO.class);
-            listPacienteDTO.add(pacienteDTO);
+            if(paciente.getDeletado() == 0) {
+                PacienteDTO pacienteDTO = mapper.convertValue(paciente, PacienteDTO.class);
+                listPacienteDTO.add(pacienteDTO);
+            }
         }
         log.info("Buscando Paciente |  public List<PacienteDTO> buscar()|");
         return listPacienteDTO;
@@ -40,12 +44,12 @@ public class PacienteIMPLService {
     public ResponseEntity buscarPorCpf(String cpf) throws ResourceNotFoundException{
         ObjectMapper mapper = new ObjectMapper();
         Optional<Paciente> paciente = repository.findByCpf(cpf);
-        if (paciente.isEmpty()){
+        Paciente paciente1 = paciente.get();
+        if (paciente.isEmpty() || paciente1.getDeletado() != 0 ){
             log.info("Paciente não encontrado | public ResponseEntity buscarPorCpf(String cpf)|");
             throw  new ResourceNotFoundException("Paciente não encontrado");
         }
         log.info("teste");
-        Paciente paciente1 = paciente.get();
         PacienteDTO pacienteDTO = mapper.convertValue(paciente1, PacienteDTO.class);
         log.info("Buscando Paciente |  public List<PacienteDTO> buscar()|" + paciente.get());
         return new ResponseEntity(pacienteDTO, HttpStatus.OK);
@@ -66,20 +70,21 @@ public class PacienteIMPLService {
             throw  new CadastroInvalidoException("Paciente não cadastrado");
         }
     }
-
-
-
-    public ResponseEntity deletar(String cpf) throws ResourceNotFoundException{
-        Optional<Paciente> paciente = repository.findByCpf(cpf);
-        if (paciente.isEmpty()){
-            log.info("Erro deletando Paciente |  public ResponseEntity deletar |");
-            throw  new ResourceNotFoundException("Paciente não encontrado");
+    public ResponseEntity deletar(PacienteDTO pacienteDTO){
+        Optional<Paciente> paciente1 = repository.findByCpf(pacienteDTO.getCpf());
+        if (paciente1.isEmpty()){
+            log.info("deletando |   public ResponseEntity deleta |");
+            return new ResponseEntity("deletando Paciente não existe", HttpStatus.BAD_REQUEST);
+        }        Paciente pacienteToUpdate = paciente1.get();
+        if(pacienteDTO.getDeletado() != 0) {
+            log.info(" testesteste |   public ResponseEntity deleta |" + pacienteDTO.getDeletado());
+            pacienteToUpdate.setDeletado(pacienteDTO.getDeletado());
         }
-        repository.deleteById(paciente.get().getId());
-        log.info("Deletando Paciente |  public ResponseEntity deletar|" + paciente.get().getId());
-        return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
-
+        repository.save(pacienteToUpdate);
+        log.info(" deletando |   public ResponseEntity deleta |" + pacienteDTO.getDeletado());
+        return new ResponseEntity("deletando com sucesso", HttpStatus.OK);
     }
+
 
     public ResponseEntity atualizarTotal(PacienteDTO pacienteDTO) throws ResourceNotFoundException{
 
@@ -105,14 +110,14 @@ public class PacienteIMPLService {
             log.info("Erro atualizar parcial Paciente| public ResponseEntity atualizarParcial |");
             throw  new ResourceNotFoundException("Paciente não encontrado");
         }
-        Paciente dentistaToUpdate = paciente1.get();
+        Paciente pacienteToUpdate = paciente1.get();
         if(pacienteDTO.getNome() != null) {
-            dentistaToUpdate.setNome(pacienteDTO.getNome());
+            pacienteToUpdate.setNome(pacienteDTO.getNome());
         }
         if (pacienteDTO.getSobrenome() != null){
-            dentistaToUpdate.setSobrenome(pacienteDTO.getSobrenome());
+            pacienteToUpdate.setSobrenome(pacienteDTO.getSobrenome());
         }
-        repository.save(dentistaToUpdate);
+        repository.save(pacienteToUpdate);
         log.info("Atualizando parcial Paciente| public ResponseEntity atualizarParcial |"+ pacienteDTO.getNome());
         return new ResponseEntity("Alterado com sucesso", HttpStatus.OK);
     }
