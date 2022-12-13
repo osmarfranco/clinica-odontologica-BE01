@@ -2,7 +2,6 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,12 +25,6 @@ class DentistaIMPLServiceTest {
         dentistaDTO.setNome("PrimeiroDoc");
         dentistaDTO.setSobrenome("Teste");
         service.salvar(dentistaDTO);
-    }
-
-    //Deletando o dentista depois de cada teste
-    @AfterEach
-    public void fim(){
-        service.deletar("12365");
     }
 
     //Teste do método Salvar
@@ -68,14 +61,5 @@ class DentistaIMPLServiceTest {
 
     }
 
-    //Testando o método deletar
-//    @Test
-//    void deletar(){
-//        log.info("Deletando o dentista criado para o teste");
-//        //Deletando o dentista criado para o teste
-//        service.deletar("12365");
-//        //Verificando se o dentista foi apagado
-//        Assertions.assertTrue(service.buscarPorCro("12365").getStatusCodeValue() != 200);
-//    }
 
 }
