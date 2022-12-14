@@ -99,15 +99,6 @@ public class DentistaIMPLService {
         return new ResponseEntity("deletando com sucesso", HttpStatus.OK);
     }
 
-//        Optional<Dentista> dentista = repository.findByCro(cro);
-//        if (dentista.isEmpty()){
-//            log.info("Erro ao deletar dentista | public ResponseEntity deletar |");
-//            return new ResponseEntity("Id do Dentista não existe", HttpStatus.BAD_REQUEST);
-//        }
-//        repository.deleteById(dentista.get().getId());
-//        log.info("Excluindo dentista | public ResponseEntity deletar |");
-//        return new ResponseEntity("Excluído com sucesso", HttpStatus.OK);
-
 
 
 // PRECISA CRIAR UM NOVO FindBy para pegar os dados e alterar sem realizar o mapper como no buscar por ID.
