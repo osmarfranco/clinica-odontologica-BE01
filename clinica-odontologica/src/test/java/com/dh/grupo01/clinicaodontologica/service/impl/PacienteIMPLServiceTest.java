@@ -2,6 +2,7 @@ package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
 import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
+import com.dh.grupo01.clinicaodontologica.entity.dto.UsuarioDTO;
 import com.dh.grupo01.clinicaodontologica.exception.CadastroInvalidoException;
 import com.dh.grupo01.clinicaodontologica.exception.ResourceNotFoundException;
 import lombok.extern.log4j.Log4j2;
@@ -40,6 +41,13 @@ class PacienteIMPLServiceTest {
         enderecoDTO.setEstado("São Teste");
         enderecoDTO.setCep("67125-869");
         pacienteDTO.setEndereco(enderecoDTO);
+
+        // Criando o usuário e integrando ele ao paciente
+        UsuarioDTO usuario1 = new UsuarioDTO();
+        usuario1.setUsername("Testoaldo");
+        usuario1.setPassword("123456");
+        usuario1.setPerfil("PACIENTE");
+        pacienteDTO.setUsuario(usuario1);
 
         //Salvando o pacienteDTO utilizando o metodo salvar do Service
         service.salvar(pacienteDTO);

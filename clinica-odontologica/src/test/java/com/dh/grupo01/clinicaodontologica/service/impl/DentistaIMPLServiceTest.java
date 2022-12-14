@@ -1,9 +1,9 @@
 package com.dh.grupo01.clinicaodontologica.service.impl;
 
 import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
+import com.dh.grupo01.clinicaodontologica.entity.dto.UsuarioDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,17 +16,6 @@ class DentistaIMPLServiceTest {
     @Autowired
     DentistaIMPLService service;
 
-    //Criando um dentista para testar nos outros métodos
-    @BeforeEach
-    public void inicio(){
-        log.info("Criando um dentista para testar nos outros métodos");
-        DentistaDTO dentistaDTO = new DentistaDTO();
-        dentistaDTO.setCro("12365");
-        dentistaDTO.setNome("PrimeiroDoc");
-        dentistaDTO.setSobrenome("Teste");
-        service.salvar(dentistaDTO);
-    }
-
     //Teste do método Salvar
     @Test
     void salvar(){
@@ -37,8 +26,15 @@ class DentistaIMPLServiceTest {
         dentistaDTO.setCro("12345");
         dentistaDTO.setNome("Dr DTO");
         dentistaDTO.setSobrenome("Teste");
+        UsuarioDTO usuario1 = new UsuarioDTO();
+        usuario1.setUsername("Dr DTO");
+        usuario1.setPassword("123456");
+        usuario1.setPerfil("DENTISTA");
+        dentistaDTO.setUsuario(usuario1);
+
         //Salvando o dentistaDTO utilizando o metodo salvar do Service
         service.salvar(dentistaDTO);
+
         //Confirmando que o dentista foi criado dentro do Banco de dados
         Assertions.assertTrue(service.repository.findByCro("12345").isPresent());
 
@@ -49,7 +45,7 @@ class DentistaIMPLServiceTest {
     void buscar(){
         log.info("Buscando por todas as entradas e validando se dentro dos resultados o cro do dentista criado está presente");
         //Buscando por todas as entradas e validando se dentro dos resultados o cro do dentista criado está presente
-        Assertions.assertTrue(service.buscar().stream().filter(dentistaDTO -> dentistaDTO.getCro().equals("12365")).findFirst().isPresent());
+        Assertions.assertTrue(service.buscar().stream().filter(dentistaDTO -> dentistaDTO.getCro().equals("456987")).findFirst().isPresent());
     }
 
     //Teste do método buscarPorCro
@@ -57,7 +53,7 @@ class DentistaIMPLServiceTest {
     void buscarPorCro(){
         log.info("Buscando o dentista criado para o teste e verificando se ele foi encontrado (Status code 200)");
         //Buscando o dentista criado para o teste e verificando se ele foi encontrado (Status code 200)
-        Assertions.assertTrue(service.buscarPorCro("12365").getStatusCodeValue() == 200);
+        Assertions.assertTrue(service.buscarPorCro("456987").getStatusCodeValue() == 200);
 
     }
 

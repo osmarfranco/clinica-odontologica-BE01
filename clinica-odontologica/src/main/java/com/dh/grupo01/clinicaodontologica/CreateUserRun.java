@@ -1,9 +1,7 @@
 package com.dh.grupo01.clinicaodontologica;
 
-import com.dh.grupo01.clinicaodontologica.entity.dto.DentistaDTO;
-import com.dh.grupo01.clinicaodontologica.entity.dto.EnderecoDTO;
-import com.dh.grupo01.clinicaodontologica.entity.dto.PacienteDTO;
-import com.dh.grupo01.clinicaodontologica.entity.dto.UsuarioDTO;
+import com.dh.grupo01.clinicaodontologica.entity.dto.*;
+import com.dh.grupo01.clinicaodontologica.service.impl.ConsultaIMPLService;
 import com.dh.grupo01.clinicaodontologica.service.impl.DentistaIMPLService;
 import com.dh.grupo01.clinicaodontologica.service.impl.PacienteIMPLService;
 import com.dh.grupo01.clinicaodontologica.service.impl.UsuarioIMPLService;
@@ -11,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
+
+import java.sql.Timestamp;
 
 @Configuration
 public class CreateUserRun implements ApplicationRunner {
@@ -23,6 +23,9 @@ public class CreateUserRun implements ApplicationRunner {
 
     @Autowired
     DentistaIMPLService dentistaService;
+
+    @Autowired
+    ConsultaIMPLService consultaService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -110,6 +113,48 @@ public class CreateUserRun implements ApplicationRunner {
 
         pacienteService.salvar(paciente);
         pacienteService.salvar(paciente2);
+
+
+        //Criando e setando novos dados
+        DentistaDTO dentista7 = new DentistaDTO();
+        dentista7.setNome("Jalin");
+        dentista7.setSobrenome("Haddad");
+        dentista7.setCro("422789");
+        UsuarioDTO usuario7 = new UsuarioDTO();
+        usuario7.setUsername("Jalin");
+        usuario7.setPassword("123456");
+        usuario7.setPerfil("DENTISTA");
+        dentista7.setUsuario(usuario7);
+        dentistaService.salvar(dentista7);
+
+        PacienteDTO paciente7 = new PacienteDTO();
+        paciente7.setNome("Lucas");
+        paciente7.setSobrenome("Teste");
+        paciente7.setCpf("421.346.403-24");
+        EnderecoDTO enderecoDTO7 = new EnderecoDTO();
+        enderecoDTO7.setLogradouro("Rua dos testes");
+        enderecoDTO7.setNumero(123);
+        enderecoDTO7.setComplemento(null);
+        enderecoDTO7.setBairro("Testolândia");
+        enderecoDTO7.setCidade("Testópolis");
+        enderecoDTO7.setEstado("São Teste");
+        enderecoDTO7.setCep("67125-869");
+        paciente7.setEndereco(enderecoDTO7);
+        UsuarioDTO usuario8 = new UsuarioDTO();
+        usuario8.setUsername("Lucas");
+        usuario8.setPassword("123456");
+        usuario8.setPerfil("PACIENTE");
+        paciente7.setUsuario(usuario8);
+        pacienteService.salvar(paciente7);
+
+        //Consulta
+        ConsultaDTO consultaDTO = new ConsultaDTO();
+        consultaDTO.setDataHoraConsulta(Timestamp.valueOf("2022-12-31 09:30:00"));
+        consultaDTO.setDentista(dentista7);
+        consultaDTO.setPaciente(paciente7);
+        consultaService.salvar(consultaDTO);
+
+
 
     }
 }
