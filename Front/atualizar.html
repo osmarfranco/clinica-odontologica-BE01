@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style/global.css">
+    <title>OrtoDigital Hub</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark px-5">
+        <a class="navbar-brand" href="hub.html">OrtoDigital
+            
+        </a>
+        <a href="paciente.html">
+            <button type="button" class="btn btn-primary btn-lg">Cadastrar Paciente</button>
+        </a>
+        <a href="dentista.html">
+            <button type="button" class="btn btn-primary btn-lg">Cadastrar Dentista</button>
+        </a>
+        <a href="cadastrarConsulta.html">
+            <button type="button" class="btn btn-primary btn-lg">Agendar Consulta</button>
+        </a>
+        <a href="consultaDentista.html">
+            <button type="button" class="btn btn-primary btn-lg">Verificar Dentista</button>
+        </a>
+        <a href="consultaPaciente.html">
+            <button type="button" class="btn btn-primary btn-lg">Verificar Paciente</button>
+        </a>
+        <a href="atualizar.html">
+            <button type="button" class="btn btn-primary btn-lg">Atualizar</button>
+        </a>
+        <a href="index.html">
+            <button type="button" class="btn btn-danger btn-lg">Logout</button>
+        </a>
+    </nav>
+    <div class="container mx-5 py-2 d-inline-flex">
+       <p style="font-weight: bold">O que deseja alterar?</p>
+    <div class="form-check mx-5">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkboxAlterarPaciente" onclick="track()">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Alterar Paciente
+        </label>
+      </div>
+      
+      <div class="form-check mr-5">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkboxAlterarDentista" onclick="track()">
+        <label class="form-check-label" for="flexRadioDefault2">
+          Alterar Dentista
+        </label>
+      </div>
+      <div class="form-check ">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkboxAlterarConsulta" onclick="track()">
+        <label class="form-check-label" for="flexRadioDefault2">
+          Alterar Consulta
+        </label>
+      </div>
+    </div>
+</div>
+<div class="input-group rounded my-3 ml-3 w-100">
+    <span class="input-group-text border-0 mr-5 w-50" id="search-addon">
+        <input type="search" class="form-control rounded mr-2" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" id="buscaUpdate"/>
+        <button type="button" class="btn btn-outline-primary " id="buscaBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+        </button>
+    </span>
+    <button type="button" class="btn btn-warning mr-5 ">Alterar</button>
+    <button type="button" class="btn btn-danger ">Deletar</button>
+    <table class="table" id="areaTabela">
+
+    <script src="./js/checkUpdate.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
