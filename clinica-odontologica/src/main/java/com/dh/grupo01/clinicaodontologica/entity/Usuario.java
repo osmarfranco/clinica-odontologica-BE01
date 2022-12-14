@@ -35,6 +35,8 @@ public class Usuario implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis;
 
+    private String perfil;
+
     public void encriptarSenha() {
         //Encriptando a senha do usuário antes de salvá-la no banco
         BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
